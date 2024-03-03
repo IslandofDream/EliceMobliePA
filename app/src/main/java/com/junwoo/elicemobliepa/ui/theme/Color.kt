@@ -1,11 +1,50 @@
 package com.junwoo.elicemobliepa.ui.theme
 
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val Black = Color(0xFF000000)
+val DarkGray = Color(0xFF242424)
+val Gray = Color(0xFFAEAEAE)
+val LightGray = Color(0xFFE4E4E4)
+val White = Color(0xFFFFFFFF)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val LightPurple = Color(0xFF524FA1)
+val Purple = Color(0xFF5A2ECC)
+val CherryRed = Color(0xFFF44336)
+
+data class EliceColors(
+    val black: Color,
+    val darkGray: Color,
+    val gray: Color,
+    val lightGray: Color,
+    val white: Color,
+    val lightPurple: Color,
+    val purple: Color,
+    val cherryRed: Color,
+)
+
+val LocalEliceColors = staticCompositionLocalOf {
+    EliceColors(
+        black = Black,
+        darkGray = DarkGray,
+        gray = Gray,
+        lightGray = LightGray,
+        white = White,
+        lightPurple = LightPurple,
+        purple = Purple,
+        cherryRed = CherryRed
+    )
+}
+
+val LocalEliceColorScheme = EliceColors(
+    black = Black,
+    darkGray = DarkGray,
+    gray = Gray,
+    lightGray = LightGray,
+    white = White,
+    lightPurple = LightPurple,
+    purple = Purple,
+    cherryRed = CherryRed
+)
+
