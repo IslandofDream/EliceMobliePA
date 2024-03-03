@@ -1,7 +1,11 @@
 package com.junwoo.elicemobliepa.presentation.widget.coursecard
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,8 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -34,18 +40,16 @@ data class CourseCardModel(
 
 @Composable
 fun CourseCard(
-    courseCardModel: CourseCardModel,
-    onClick: () -> Unit
+    courseCardModel: CourseCardModel, onClick: () -> Unit
 ) {
     val spacer8 = dimensionResource(id = R.dimen.spacer_8)
     val spacer2 = dimensionResource(id = R.dimen.spacer_2)
 
-    Column(
-        modifier = Modifier
-            .width(200.dp)
-            .height(220.dp)
-            .clickable { onClick.invoke() }
-    ) {
+    Column(modifier = Modifier
+        .width(200.dp)
+        .height(220.dp)
+        .background(EliceTheme.colors.white)
+        .clickable { onClick.invoke() }) {
 
         AsyncImage(
             model = courseCardModel.imageFileUrl ?: courseCardModel.logoFileUrl,
@@ -65,7 +69,8 @@ fun CourseCard(
         Text(
             text = courseCardModel.title,
             modifier = Modifier.wrapContentSize(),
-            style = EliceTheme.typography.homeTitle
+            style = EliceTheme.typography.homeTitle,
+            color = EliceTheme.colors.black
         )
         Spacer(
             modifier = Modifier
@@ -75,8 +80,39 @@ fun CourseCard(
         Text(
             text = courseCardModel.shortDescription,
             modifier = Modifier.wrapContentSize(),
-            style = EliceTheme.typography.homeDescription
+            style = EliceTheme.typography.homeDescription,
+            color = EliceTheme.colors.darkGray,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2
         )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(spacer8)
+        )
+        CourseTagList(tags = courseCardModel.tags)
+    }
+}
+
+
+/*
+FlowRow를 활용하여 자동으로 Tag들이 넘어가도록 설정
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun CourseTagList(tags: List<String>) {
+    FlowRow(
+        modifier = Modifier
+            .height(35.dp)
+            .fillMaxWidth()
+            .clip(RectangleShape),
+        // Tag의 크기가 고정임을 이용하여 2줄 을 넘어간 높이의 경우 보이지 않게 하도록 설정
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        tags.forEach { tag ->
+            CourseCardTag(content = tag)
+        }
     }
 }
 

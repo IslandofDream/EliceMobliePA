@@ -11,14 +11,43 @@ class CourseCardPreviewProvider : PreviewParameterProvider<CourseCardModel> {
                 logoFileUrl = TestDummy.TEST_LOGO,
                 title = "Title",
                 shortDescription = "Short Description",
-                tags = listOf()
+                tags = listOf("알고리즘", "코딩", "파이썬", "LEVEL1")
             ),
             CourseCardModel(
                 imageFileUrl = TestDummy.TEST_IMAGE,
                 logoFileUrl = TestDummy.TEST_LOGO,
                 title = "Title",
                 shortDescription = "Short Description",
-                tags = listOf()
+                tags = listOf("알고리즘", "코딩", "파이썬", "LEVEL1", "wwwwwwwwwwwwwwwwwwwwwwwww")
+            ),
+            CourseCardModel(
+                imageFileUrl = TestDummy.TEST_IMAGE,
+                logoFileUrl = TestDummy.TEST_LOGO,
+                title = "Title",
+                shortDescription = "Short Description",
+                tags = listOf(
+                    "알고리즘",
+                    "코딩",
+                    "파이썬",
+                    "LEVEL1",
+                    "wwwwwwwwwwwwwwwwwwwwwwwww",
+                    "wwwwwwwwwwwwwwwwwwwwwwwww"
+                )
+            ),
+            CourseCardModel(
+                imageFileUrl = TestDummy.TEST_IMAGE,
+                logoFileUrl = TestDummy.TEST_LOGO,
+                title = "Title",
+                shortDescription = "Short Description",
+                tags = listOf(
+                    "알고리즘",
+                    "코딩",
+                    "파이썬",
+                    "LEVEL1",
+                    "wwwwwwwwwwwwwwwwwwwwwwwww",
+                    "wwwwwwwwwwwwwwwwwwwwwwwww",
+                    "wwwwwwwwwwwwwwwwwwwwwwwww"
+                )
             ),
         )
 }
