@@ -94,4 +94,7 @@ dependencies {
 
     //timber
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    //commonmark
+    implementation("org.commonmark:commonmark:0.21.0")
 }

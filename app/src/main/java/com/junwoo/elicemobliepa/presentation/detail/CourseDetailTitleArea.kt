@@ -1,4 +1,4 @@
-package com.junwoo.elicemobliepa.detail
+package com.junwoo.elicemobliepa.presentation.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

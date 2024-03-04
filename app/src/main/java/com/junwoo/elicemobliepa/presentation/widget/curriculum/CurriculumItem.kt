@@ -1,10 +1,10 @@
+package com.junwoo.elicemobliepa.presentation.widget.curriculum
+
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,29 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.junwoo.elicemobliepa.R
-import com.junwoo.elicemobliepa.presentation.widget.curriculum.CurriculumPreviewProvider
 import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
 @Composable
-fun CurriculumItem(items: List<Pair<String, String>>) {
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(modifier = Modifier.matchParentSize()) {
-            itemsIndexed(items) { index, item ->
-                TimelineView(
-                    title = item.first,
-                    description = item.second,
-                    index = index,
-                    itemCount = items.size,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun TimelineView(
+fun TimelineView(
     title: String,
     description: String,
     index: Int,
@@ -70,7 +52,7 @@ private fun TimelineView(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { }
+            .padding(horizontal = 16.dp)
             .onSizeChanged { size ->
                 height = size.height
             }
@@ -129,6 +111,23 @@ private fun TimelineView(
                 center = Offset(circleRadius, circleRadius + spaceWithTopAndCircle),
                 style = Stroke(width = 2.0F)
             )
+        }
+    }
+}
+
+@Composable
+private fun CurriculumItem(items: List<Pair<String, String>>) {
+
+    Box {
+        LazyColumn(modifier = Modifier.matchParentSize()) {
+            itemsIndexed(items) { index, item ->
+                TimelineView(
+                    title = item.first,
+                    description = item.second,
+                    index = index,
+                    itemCount = items.size,
+                )
+            }
         }
     }
 }
