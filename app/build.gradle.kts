@@ -106,5 +106,8 @@ dependencies {
     //compose-markdown
     implementation ("com.github.jeziellago:compose-markdown:0.4.1")
 
+    //paging
+    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
+
 
 }
