@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 
 val Black = Color(0xFF000000)
 val DarkGray = Color(0xFF242424)
+val Charcoal = Color(0xFF3A3A4C)
 val Gray = Color(0xFFAEAEAE)
 val LightGray = Color(0xFFE4E4E4)
 val White = Color(0xFFFFFFFF)
@@ -16,6 +17,7 @@ val CherryRed = Color(0xFFF44336)
 data class EliceColors(
     val black: Color,
     val darkGray: Color,
+    val charcoal: Color,
     val gray: Color,
     val lightGray: Color,
     val white: Color,
@@ -28,6 +30,7 @@ val LocalEliceColors = staticCompositionLocalOf {
     EliceColors(
         black = Black,
         darkGray = DarkGray,
+        charcoal = Charcoal,
         gray = Gray,
         lightGray = LightGray,
         white = White,
@@ -40,6 +43,7 @@ val LocalEliceColors = staticCompositionLocalOf {
 val LocalEliceColorScheme = EliceColors(
     black = Black,
     darkGray = DarkGray,
+    charcoal = Charcoal,
     gray = Gray,
     lightGray = LightGray,
     white = White,
