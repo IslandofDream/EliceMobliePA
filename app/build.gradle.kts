@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,6 +8,9 @@ plugins {
     id("kotlinx-serialization")
     id("dagger.hilt.android.plugin")
 }
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
+
 
 android {
     namespace = "com.junwoo.elicemobliepa"
@@ -17,6 +22,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "BASE_URL", properties.getProperty("BASE_URL"))
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
