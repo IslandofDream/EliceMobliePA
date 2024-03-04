@@ -3,4 +3,6 @@
     <dimen name="spacer_2">2dp</dimen>
     <dimen name="spacer_8">8dp</dimen>
     <dimen name="spacer_16">16dp</dimen>
+    <dimen name="home_topbar_height">64dp</dimen>
+    <dimen name="detail_topbar_height">56dp</dimen>
 </resources>
