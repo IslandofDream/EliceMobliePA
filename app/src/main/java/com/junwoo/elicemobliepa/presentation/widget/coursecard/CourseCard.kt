@@ -45,7 +45,6 @@ fun CourseCard(
     val spacer8 = dimensionResource(id = R.dimen.spacer_8)
     val spacer2 = dimensionResource(id = R.dimen.spacer_2)
 
-
     Column(modifier = Modifier
         .width(200.dp)
         .height(220.dp)
@@ -89,7 +88,7 @@ fun CourseCard(
 }
 
 @Composable
-fun ThumbnailWithImage(url: String) {
+private fun ThumbnailWithImage(url: String) {
     AsyncImage(
         model = url,
         contentDescription = null,
@@ -103,7 +102,7 @@ fun ThumbnailWithImage(url: String) {
 }
 
 @Composable
-fun ThumbnailWithOutImage(url: String) {
+private fun ThumbnailWithOutImage(url: String) {
     Box(
         modifier = Modifier
             .width(200.dp)
@@ -129,7 +128,7 @@ FlowRow를 활용하여 자동으로 Tag들이 넘어가도록 설정
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CourseTagList(tags: List<String>) {
+private fun CourseTagList(tags: List<String>) {
     FlowRow(
         modifier = Modifier
             .height(35.dp)
@@ -147,7 +146,7 @@ fun CourseTagList(tags: List<String>) {
 
 @Composable
 @Preview(device = Devices.PHONE)
-fun PreViewHomeCourseCard(
+private fun PreViewHomeCourseCard(
     @PreviewParameter(CourseCardPreviewProvider::class) courseCardModel: CourseCardModel
 ) {
     EliceMobliePATheme {

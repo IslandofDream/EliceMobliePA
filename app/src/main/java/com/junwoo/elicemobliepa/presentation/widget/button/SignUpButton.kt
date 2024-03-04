@@ -70,7 +70,7 @@ fun SignUpButton(model: SignUpButtonModel, applied: Boolean, onClick: () -> Unit
 
 @Composable
 @Preview(device = Devices.PHONE)
-fun SignUpButtonPreview() {
+private fun SignUpButtonPreview() {
     EliceMobliePATheme {
         Column(
             modifier = Modifier.background(Color.Gray),

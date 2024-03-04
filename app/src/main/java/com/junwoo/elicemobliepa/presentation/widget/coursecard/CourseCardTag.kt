@@ -38,7 +38,7 @@ fun CourseCardTag(content: String) {
 
 @Composable
 @Preview(device = Devices.PHONE)
-fun PreviewCourseCardTag(
+private fun PreviewCourseCardTag(
     @PreviewParameter(CourseTagPreviewProvider::class) tagList: String
 ) {
     EliceMobliePATheme {

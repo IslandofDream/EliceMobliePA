@@ -111,7 +111,7 @@ private fun TopBarRightSection(topBarRightSection: TopBarRightSection, onClick: 
 
 @Composable
 @Preview(device = Devices.PHONE)
-fun PreviewTopBar(
+private fun PreviewTopBar(
     @PreviewParameter(EliceTopBarPreviewProvider::class) models: EliceTopBarModel
 ) {
     EliceMobliePATheme {
