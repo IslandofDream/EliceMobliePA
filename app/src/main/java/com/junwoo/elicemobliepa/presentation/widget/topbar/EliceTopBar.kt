@@ -3,6 +3,7 @@ package com.junwoo.elicemobliepa.presentation.widget.topbar
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -45,7 +46,7 @@ enum class TopBarRightSection(
 
 
 @Composable
-fun EliceTopBar(model: EliceTopBarModel) {
+fun EliceTopBar(model: EliceTopBarModel, onLeftClick: () -> Unit, onRightClick: () -> Unit) {
 
     Row(
         modifier = Modifier
@@ -56,13 +57,13 @@ fun EliceTopBar(model: EliceTopBarModel) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TopBarLeftSection(topBarLeftSection = model.topBarLeftSection)
-        TopBarRightSection(topBarRightSection = model.topBarRightSection)
+        TopBarLeftSection(topBarLeftSection = model.topBarLeftSection, onClick = onLeftClick)
+        TopBarRightSection(topBarRightSection = model.topBarRightSection, onClick = onRightClick)
     }
 }
 
 @Composable
-private fun TopBarLeftSection(topBarLeftSection: TopBarLeftSection) {
+private fun TopBarLeftSection(topBarLeftSection: TopBarLeftSection, onClick: () -> Unit) {
     Row {
         when (topBarLeftSection) {
             TopBarLeftSection.LOGO -> {
@@ -81,6 +82,7 @@ private fun TopBarLeftSection(topBarLeftSection: TopBarLeftSection) {
                     contentDescription = null,
                     modifier = Modifier
                         .size(24.dp)
+                        .clickable { onClick.invoke() }
                 )
             }
         }
@@ -88,7 +90,7 @@ private fun TopBarLeftSection(topBarLeftSection: TopBarLeftSection) {
 }
 
 @Composable
-private fun TopBarRightSection(topBarRightSection: TopBarRightSection) {
+private fun TopBarRightSection(topBarRightSection: TopBarRightSection, onClick: () -> Unit) {
     Row {
         when (topBarRightSection) {
             TopBarRightSection.SEARCH -> {
@@ -97,6 +99,7 @@ private fun TopBarRightSection(topBarRightSection: TopBarRightSection) {
                     contentDescription = null,
                     modifier = Modifier
                         .size(32.dp)
+                        .clickable { onClick.invoke() }
                 )
             }
 
@@ -108,11 +111,11 @@ private fun TopBarRightSection(topBarRightSection: TopBarRightSection) {
 
 @Composable
 @Preview(device = Devices.PHONE)
-private fun PreviewTopBar(
+fun PreviewTopBar(
     @PreviewParameter(EliceTopBarPreviewProvider::class) models: EliceTopBarModel
 ) {
     EliceMobliePATheme {
-        EliceTopBar(model = models)
+        EliceTopBar(model = models, onLeftClick = {}, onRightClick = {})
     }
 }
 
