@@ -12,11 +12,12 @@ data class EliceTypography(
     val homeDescription: TextStyle,
     val homeTag: TextStyle,
     val courseTitleSmall: TextStyle,
+    val courseSubTitleSmall: TextStyle,
     val courseTitleLarge: TextStyle,
     val courseSubTitle: TextStyle,
     val courseButton: TextStyle,
     val curriculumTitle: TextStyle,
-    val courseShortDescription: TextStyle,
+    val curriculumDescription: TextStyle,
 )
 
 val LocalEliceTypography = staticCompositionLocalOf {
@@ -26,11 +27,12 @@ val LocalEliceTypography = staticCompositionLocalOf {
         homeDescription = TextStyle.Default,
         homeTag = TextStyle.Default,
         courseTitleSmall = TextStyle.Default,
+        courseSubTitleSmall = TextStyle.Default,
         courseTitleLarge = TextStyle.Default,
         courseSubTitle = TextStyle.Default,
         courseButton = TextStyle.Default,
         curriculumTitle = TextStyle.Default,
-        courseShortDescription = TextStyle.Default,
+        curriculumDescription = TextStyle.Default,
     )
 }
 
@@ -67,6 +69,13 @@ fun getEliceTypography(): EliceTypography =
             fontSize = 16.sp,
             lineHeight = 24.sp,
         ),
+        courseSubTitleSmall = TextStyle
+            (
+            fontFamily = notoSans,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp,
+            lineHeight = 20.sp,
+        ),
         courseTitleLarge = TextStyle(
             fontFamily = notoSans,
             fontWeight = FontWeight.Bold,
@@ -91,7 +100,7 @@ fun getEliceTypography(): EliceTypography =
             fontSize = 18.sp,
             lineHeight = 28.sp,
         ),
-        courseShortDescription = TextStyle(
+        curriculumDescription = TextStyle(
             fontFamily = notoSans,
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,

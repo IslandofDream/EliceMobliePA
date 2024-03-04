@@ -52,7 +52,7 @@ fun TitleAreaWithoutImage(logoUrl: String, title: String, shortDescription: Stri
         )
         Text(
             text = shortDescription,
-            style = EliceTheme.typography.courseShortDescription,
+            style = EliceTheme.typography.courseSubTitleSmall,
             color = EliceTheme.colors.black
         )
         Spacer(
@@ -76,7 +76,7 @@ fun TitleAreaWithImage(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
             AsyncImage(
                 model = logoUrl,
@@ -95,7 +95,7 @@ fun TitleAreaWithImage(
             Text(
                 text = title,
                 style = EliceTheme.typography.courseTitleSmall,
-                color = EliceTheme.colors.black
+                color = EliceTheme.colors.black,
             )
         }
         AsyncImage(

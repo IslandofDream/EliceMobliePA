@@ -78,7 +78,7 @@ fun TimelineView(
                         .fillMaxWidth()
                         .height(spacer4)
                 )
-                Text(text = description, style = EliceTheme.typography.courseSubTitle)
+                Text(text = description, style = EliceTheme.typography.curriculumDescription)
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
