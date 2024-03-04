@@ -1,7 +1,6 @@
 package com.junwoo.elicemobliepa.presentation.detail
 
 import android.os.Bundle
-import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
@@ -25,9 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import com.junwoo.elicemobliepa.R
-import com.junwoo.elicemobliepa.presentation.util.TestDummy
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButton
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButtonModel
 import com.junwoo.elicemobliepa.presentation.widget.curriculum.TimelineView
@@ -38,8 +35,7 @@ import com.junwoo.elicemobliepa.presentation.widget.topbar.TopBarRightSection
 import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 import dagger.hilt.android.AndroidEntryPoint
-import org.commonmark.parser.Parser
-import org.commonmark.renderer.html.HtmlRenderer
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @AndroidEntryPoint
 class CourseDetailActivity : ComponentActivity() {
@@ -153,19 +149,8 @@ class CourseDetailActivity : ComponentActivity() {
 
     @Composable
     private fun DescriptionArea(markdown: String) {
-        val parser = Parser.builder().build()
-        val renderer = HtmlRenderer.builder().build()
-
-        // Markdown을 HTML로 변환합니다.
-        val document = parser.parse(markdown)
-        val html = renderer.render(document)
-
-        // WebView를 사용하여 HTML을 렌더링합니다.
-        AndroidView(factory = { context ->
-            WebView(context).apply {
-                loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
-            }
-        })
+        MarkdownText(markdown = markdown)
+        Spacer(modifier = Modifier.height(8.dp))
     }
 
     @Preview

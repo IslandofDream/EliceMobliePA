@@ -95,6 +95,8 @@ dependencies {
     //timber
     implementation("com.jakewharton.timber:timber:5.0.1")
 
-    //commonmark
-    implementation("org.commonmark:commonmark:0.21.0")
+    //compose-markdown
+    implementation ("com.github.jeziellago:compose-markdown:0.4.1")
+
+
 }
