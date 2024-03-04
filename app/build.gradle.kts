@@ -23,7 +23,10 @@ android {
             useSupportLibrary = true
         }
     }
-
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -40,9 +43,8 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures {
-        compose = true
-    }
+
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
