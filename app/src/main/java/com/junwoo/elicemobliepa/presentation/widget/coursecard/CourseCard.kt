@@ -42,8 +42,8 @@ data class CourseCardModel(
 fun CourseCard(
     courseCardModel: CourseCardModel, onClick: () -> Unit
 ) {
-    val spacer8 = dimensionResource(id = R.dimen.spacer_8)
     val spacer2 = dimensionResource(id = R.dimen.spacer_2)
+    val spacer8 = dimensionResource(id = R.dimen.spacer_8)
 
     Column(modifier = Modifier
         .width(200.dp)
@@ -63,7 +63,9 @@ fun CourseCard(
             text = courseCardModel.title,
             modifier = Modifier.fillMaxWidth(),
             style = EliceTheme.typography.homeTitle,
-            color = EliceTheme.colors.black
+            color = EliceTheme.colors.black,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2
         )
         Spacer(
             modifier = Modifier

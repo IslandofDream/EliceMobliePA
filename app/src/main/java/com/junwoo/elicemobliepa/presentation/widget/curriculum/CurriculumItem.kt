@@ -3,8 +3,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -19,10 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.junwoo.elicemobliepa.R
 import com.junwoo.elicemobliepa.presentation.widget.curriculum.CurriculumPreviewProvider
 import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
@@ -45,18 +50,22 @@ fun CurriculumItem(items: List<Pair<String, String>>) {
 }
 
 @Composable
-fun TimelineView(
+private fun TimelineView(
     title: String,
     description: String,
     index: Int,
     itemCount: Int,
 ) {
+    // 제목, Description에 따른 높이 변화를 저장하는 함수
     var height by remember { mutableStateOf(0) }
 
+    val spacer4 = dimensionResource(id = R.dimen.spacer_4)
+    val spacer8 = dimensionResource(id = R.dimen.spacer_8)
+
     val circleSize = 16.dp
-    val timeLineColor = EliceTheme.colors.purple
     val lineWidth = 2.dp
-    val spaceBetweenCircleAndLine = 16.dp
+    val timeLineColor = EliceTheme.colors.purple
+    val spaceBetweenTimeLineAndText = 8.dp
 
     Box(
         modifier = Modifier
@@ -65,26 +74,46 @@ fun TimelineView(
             .onSizeChanged { size ->
                 height = size.height
             }
-            .padding(16.dp)
     ) {
         Row(
             verticalAlignment = Alignment.Top,
             modifier = Modifier
-                .padding(start = circleSize + spaceBetweenCircleAndLine)
+                .padding(start = circleSize + spaceBetweenTimeLineAndText)
         ) {
             Column {
-                Text(text = title, style = EliceTheme.typography.curriculumTitle)
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(spacer8)
+                )
+                Text(
+                    text = title, style = EliceTheme.typography.curriculumTitle,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(spacer4)
+                )
                 Text(text = description, style = EliceTheme.typography.courseSubTitle)
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(spacer8)
+                )
             }
         }
 
-        // 원과 선을 그릴 Canvas
+        // TimeLine을 위한 원과 선을 그릴 Canvas
         Canvas(modifier = Modifier.align(Alignment.TopStart)) {
             val circleRadius = circleSize.toPx() / 2
-            val lineStart = Offset(circleRadius, circleRadius * 2)
-            val lineEnd = Offset(circleRadius, height.toFloat())
+            val spaceWithTopAndCircle = 14.dp.toPx()
+            val lineStart = Offset(circleRadius, (circleRadius * 2) + spaceWithTopAndCircle)
+            val lineEnd = Offset(circleRadius, height.toFloat() + spaceWithTopAndCircle)
 
             // 선 그리기
+            // 마지막 원의 경우 선을 그리지 않음
             if (index < itemCount - 1) {
                 drawLine(
                     color = timeLineColor,
@@ -97,7 +126,7 @@ fun TimelineView(
             drawCircle(
                 color = timeLineColor,
                 radius = circleRadius,
-                center = Offset(circleRadius, circleRadius),
+                center = Offset(circleRadius, circleRadius + spaceWithTopAndCircle),
                 style = Stroke(width = 2.0F)
             )
         }
@@ -106,7 +135,7 @@ fun TimelineView(
 
 @Preview(device = Devices.PHONE)
 @Composable
-fun DefaultPreview(
+private fun CurriculumPreview(
     @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<Pair<String, String>>
 ) {
     EliceMobliePATheme {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="spacer_2">2dp</dimen>
+    <dimen name="spacer_4">4dp</dimen>
     <dimen name="spacer_8">8dp</dimen>
     <dimen name="spacer_16">16dp</dimen>
     <dimen name="home_topbar_height">64dp</dimen>
