@@ -5,6 +5,7 @@
     <string name="home_my_course">내 학습</string>
     <string name="course_introduce">과목 소개</string>
     <string name="course_curriculum">커리큘럼</string>
+    <string name="course_empty">수강 과목이 없어요!</string>
     <string name="button_enroll">수강 신청</string>
     <string name="button_withdrawal">수강 취소</string>
     <string name="button_long_text">0000000000000000000000000000000000000000000000000000</string>

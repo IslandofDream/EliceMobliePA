@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
@@ -25,6 +25,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -140,39 +142,70 @@ class HomeActivity : ComponentActivity() {
 
     @Composable
     private fun CourseList(courseCards: LazyPagingItems<CourseItemEntity>) {
-        if (courseCards.loadState.refresh is LoadState.Loading) {
-            // 초기 로딩 중인 경우 로딩 인디케이터 표시
-            CircularProgressIndicator(
+        when {
+            courseCards.loadState.refresh is LoadState.Loading -> {
+                LoadingIndicator()
+            }
+
+            courseCards.itemCount == 0 -> {
+                EmptyContent()
+            }
+
+            else -> {
+                CourseCardsRow(courseCards)
+            }
+        }
+    }
+
+    @Composable
+    fun LoadingIndicator() {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(220.dp)
+                .wrapContentSize(Alignment.Center),
+            color = EliceTheme.colors.lightGray,
+        )
+    }
+
+    @Composable
+    fun EmptyContent() {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(220.dp)
+                .wrapContentSize(Alignment.Center)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_course_empty),
+                contentDescription = null,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-                    .wrapContentSize(Alignment.Center),
-                color = EliceTheme.colors.lightGray,
+                    .height(100.dp),
+                contentScale = ContentScale.Crop
             )
-        } else {
-            LazyRow(
-                modifier = Modifier.padding(vertical = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(courseCards.itemCount) { course ->
-                    CourseCard(courseCardModel = courseCards[course]!!) {
+            Text(
+                text = stringResource(id = R.string.course_empty),
+                style = EliceTheme.typography.homeTitle,
+                color = EliceTheme.colors.gray,
+            )
+        }
+    }
+
+    @Composable
+    fun CourseCardsRow(courseCards: LazyPagingItems<CourseItemEntity>) {
+        LazyRow(
+            modifier = Modifier.padding(vertical = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(courseCards.itemCount) { index ->
+                courseCards[index]?.let { courseItem ->
+                    CourseCard(courseCardModel = courseItem) {
                         startActivity(
                             Intent(this@HomeActivity, CourseDetailActivity::class.java)
-                                .putExtra(COURSE_ID_KEY, courseCards[course]!!.id)
+                                .putExtra(COURSE_ID_KEY, courseCards[index]!!.id)
                         )
-                    }
-
-                    courseCards.apply {
-                        when (loadState.append) {
-                            is LoadState.Loading -> {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.width(64.dp),
-                                    color = EliceTheme.colors.lightGray,
-                                )
-                            }
-
-                            else -> Unit
-                        }
                     }
                 }
             }
