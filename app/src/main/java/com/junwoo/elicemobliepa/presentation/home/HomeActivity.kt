@@ -13,13 +13,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +42,6 @@ import com.junwoo.elicemobliepa.presentation.widget.topbar.TopBarRightSection
 import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
@@ -96,7 +99,10 @@ class HomeActivity : ComponentActivity() {
                             .height(8.dp)
                     )
                     CourseSection(text = R.string.home_free_course, courseCards = freeCourses)
-                    CourseSection(text = R.string.home_recommend_course, courseCards = recommendCourses)
+                    CourseSection(
+                        text = R.string.home_recommend_course,
+                        courseCards = recommendCourses
+                    )
                     CourseSection(text = R.string.home_my_course, courseCards = myCourses)
                 }
             }
@@ -111,7 +117,7 @@ class HomeActivity : ComponentActivity() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp)
+                .padding(horizontal = 16.dp)
         ) {
             CourseSectionTitle(text = text)
             CourseList(courseCards = courseCards)
@@ -134,29 +140,38 @@ class HomeActivity : ComponentActivity() {
 
     @Composable
     private fun CourseList(courseCards: LazyPagingItems<CourseItemEntity>) {
-        LazyRow(
-            modifier = Modifier.padding(vertical = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(courseCards.itemCount) { course ->
-                CourseCard(courseCardModel = courseCards[course]!!) {
-                    startActivity(
-                        Intent(this@HomeActivity, CourseDetailActivity::class.java)
-                            .putExtra(COURSE_ID_KEY, courseCards[course]!!.id)
-                    )
-                }
-                courseCards.apply {
-                    when {
-                        loadState.refresh is LoadState.Loading -> {
-                            Timber.e("Refresh")
-                        }
+        if (courseCards.loadState.refresh is LoadState.Loading) {
+            // 초기 로딩 중인 경우 로딩 인디케이터 표시
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp)
+                    .wrapContentSize(Alignment.Center),
+                color = EliceTheme.colors.lightGray,
+            )
+        } else {
+            LazyRow(
+                modifier = Modifier.padding(vertical = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(courseCards.itemCount) { course ->
+                    CourseCard(courseCardModel = courseCards[course]!!) {
+                        startActivity(
+                            Intent(this@HomeActivity, CourseDetailActivity::class.java)
+                                .putExtra(COURSE_ID_KEY, courseCards[course]!!.id)
+                        )
+                    }
 
-                        loadState.append is LoadState.Loading -> {
-                            Timber.e("Append")
-                        }
+                    courseCards.apply {
+                        when (loadState.append) {
+                            is LoadState.Loading -> {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.width(64.dp),
+                                    color = EliceTheme.colors.lightGray,
+                                )
+                            }
 
-                        loadState.append is LoadState.Error -> {
-                            Timber.e("Error")
+                            else -> Unit
                         }
                     }
                 }

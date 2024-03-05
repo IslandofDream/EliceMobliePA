@@ -2,7 +2,7 @@
     <string name="app_name">EliceMobliePA</string>
     <string name="home_free_course">무료 과목</string>
     <string name="home_recommend_course">추천 과목</string>
-    <string name="home_my_course">내 과목</string>
+    <string name="home_my_course">내 학습</string>
     <string name="course_introduce">과목 소개</string>
     <string name="course_curriculum">커리큘럼</string>
     <string name="button_enroll">수강 신청</string>
