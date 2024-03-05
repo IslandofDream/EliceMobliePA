@@ -5,17 +5,20 @@ import androidx.lifecycle.viewModelScope
 import com.junwoo.elicemobliepa.core.ApiResult
 import com.junwoo.elicemobliepa.domain.entity.CourseDetailEntity
 import com.junwoo.elicemobliepa.domain.entity.LectureEntity
+import com.junwoo.elicemobliepa.domain.repository.local.DataStoreRepository
 import com.junwoo.elicemobliepa.domain.repository.remote.DetailRepository
 import com.junwoo.elicemobliepa.presentation.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CourseDetailViewModel @Inject constructor(
-    private val detailRepository: DetailRepository
+    private val detailRepository: DetailRepository,
+    private val dataStoreRepository: DataStoreRepository,
 ) : ViewModel() {
 
     private val _detailCourseStateFlow = MutableStateFlow<UiState<CourseDetailEntity>>(UiState.Init)
@@ -23,6 +26,37 @@ class CourseDetailViewModel @Inject constructor(
 
     private val _lectureListStateFlow = MutableStateFlow<UiState<List<LectureEntity>>>(UiState.Init)
     val lectureListStateFlow = _lectureListStateFlow.asStateFlow()
+
+    private val _appliedStateFlow = MutableStateFlow(false)
+    val appliedStateFlow = _appliedStateFlow.asStateFlow()
+
+    // DataStore에서 해당 id가 리스트에 있는지 없는지 작업중에는 수강 버튼의 활성화를 막아두기 위한 Flow입니다.
+    private val _isLoadingStateFlow = MutableStateFlow(true)
+    val isLoadingStateFlow = _isLoadingStateFlow.asStateFlow()
+
+    fun checkApplied(courseId: Int) {
+        viewModelScope.launch {
+            _appliedStateFlow.value =
+                dataStoreRepository.getMyCourseList().first().toMutableList().contains(courseId)
+            _isLoadingStateFlow.value = false
+        }
+    }
+
+    fun singUpCourse(courseId: Int, applied: Boolean) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                dataStoreRepository.getMyCourseList()
+            }.onSuccess {
+                val courseList = it.first().toMutableList()
+                if (!applied) courseList.add(courseId)
+                else courseList.remove(courseId)
+                dataStoreRepository.saveMyCourseList(courseList.toList())
+                _appliedStateFlow.value = !_appliedStateFlow.value
+            }.onFailure {
+                throw it
+            }
+        }
+    }
 
     fun getCourseDetail(courseId: Int) {
         viewModelScope.launch {

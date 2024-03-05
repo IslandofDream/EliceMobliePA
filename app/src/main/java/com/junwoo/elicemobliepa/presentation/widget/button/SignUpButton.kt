@@ -13,9 +13,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -35,10 +32,12 @@ data class SignUpButtonModel(
 )
 
 @Composable
-fun SignUpButton(model: SignUpButtonModel, applied: Boolean, onClick: () -> Unit) {
-    val applied by remember {
-        mutableStateOf(applied)
-    }
+fun SignUpButton(
+    model: SignUpButtonModel,
+    applied: Boolean,
+    isLoading: Boolean,
+    onClick: () -> Unit
+) {
 
     val bgColor = if (applied) model.withdrawalColor else model.enrollColor
     val text =
@@ -56,7 +55,8 @@ fun SignUpButton(model: SignUpButtonModel, applied: Boolean, onClick: () -> Unit
         colors = ButtonDefaults.buttonColors(
             containerColor = bgColor,
             contentColor = model.textColor,
-        )
+        ),
+        enabled = !isLoading
     ) {
         Text(
             text = text,
@@ -77,8 +77,10 @@ private fun SignUpButtonPreview() {
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             getSingUpButtonModels().forEach { model ->
-                SignUpButton(model = model, true) {}
-                SignUpButton(model = model, false) {}
+                SignUpButton(model = model, applied = true, isLoading = true) {}
+                SignUpButton(model = model, applied = false, isLoading = true) {}
+                SignUpButton(model = model, applied = true, isLoading = false) {}
+                SignUpButton(model = model, applied = false, isLoading = false) {}
             }
         }
     }

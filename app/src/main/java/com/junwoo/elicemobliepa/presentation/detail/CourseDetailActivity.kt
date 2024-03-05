@@ -57,21 +57,24 @@ class CourseDetailActivity : ComponentActivity() {
         val detailViewModel by viewModels<CourseDetailViewModel>()
 
         setContent {
-            val intentCourseId = intent.getIntExtra(HomeActivity.COURSE_ID_KEY, 0)
 
-            detailViewModel.getCourseDetail(courseId = intentCourseId)
-            detailViewModel.getLectureList(
-                courseId = intentCourseId,
-                offset = OFFSET,
-                count = COUNT
-            )
-            CourseDetailScreen(viewModel = detailViewModel)
+            intent.getIntExtra(HomeActivity.COURSE_ID_KEY, 0).let { id ->
+                detailViewModel.getCourseDetail(courseId = id)
+                detailViewModel.getLectureList(
+                    courseId = id,
+                    offset = OFFSET,
+                    count = COUNT
+                )
+                detailViewModel.checkApplied(id)
+                CourseDetailScreen(viewModel = detailViewModel, courseId = id)
+            }
         }
+
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun CourseDetailScreen(viewModel: CourseDetailViewModel) {
+    fun CourseDetailScreen(viewModel: CourseDetailViewModel, courseId: Int) {
         EliceMobliePATheme {
             Scaffold(topBar = {
                 EliceTopBar(
@@ -90,6 +93,8 @@ class CourseDetailActivity : ComponentActivity() {
                 val lectureUiState =
                     viewModel.lectureListStateFlow.collectAsStateWithLifecycle().value
 
+                val isLoading = viewModel.isLoadingStateFlow.collectAsStateWithLifecycle().value
+                val isApplied = viewModel.appliedStateFlow.collectAsStateWithLifecycle().value
 
                 Column {
                     // infinity maxinum height 방지
@@ -189,8 +194,9 @@ class CourseDetailActivity : ComponentActivity() {
                                 withdrawalText = R.string.button_withdrawal,
                                 withdrawalColor = EliceTheme.colors.cherryRed,
                                 textColor = EliceTheme.colors.white
-                            ), applied = false
-                        ) { /*Enroll*/ }
+                            ), applied = isApplied,
+                            isLoading = isLoading
+                        ) { viewModel.singUpCourse(courseId, isApplied) }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                 }

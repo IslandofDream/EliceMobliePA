@@ -23,4 +23,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindToDetailRepository(detailRepositoryImpl: DetailRepositoryImpl): DetailRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindToDataStoreRepository(dataStoreRepositoryImpl: DataStoreRepositoryImpl): DataStoreRepository
 }
