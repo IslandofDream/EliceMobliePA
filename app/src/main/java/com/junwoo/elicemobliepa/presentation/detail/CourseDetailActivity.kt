@@ -79,7 +79,9 @@ class CourseDetailActivity : ComponentActivity() {
                         topBarLeftSection = TopBarLeftSection.BACK,
                         topBarRightSection = TopBarRightSection.NONE,
                         height = 56
-                    ), onLeftClick = {}, onRightClick = {})
+                    ), onLeftClick = {
+                        finish()
+                    }, onRightClick = {})
             })
             { innerPadding ->
 
@@ -106,18 +108,20 @@ class CourseDetailActivity : ComponentActivity() {
                                 }
 
                                 is UiState.Success -> {
-                                    courseDetailUiState.data.imageUrl?.let {
+                                    if (courseDetailUiState.data.imageUrl.isNullOrBlank()) {
+                                        TitleAreaWithoutImage(
+                                            logoUrl = courseDetailUiState.data.logoUrl,
+                                            title = courseDetailUiState.data.title,
+                                            shortDescription = courseDetailUiState.data.shortDescription!!
+                                        )
+
+                                    } else {
                                         TitleAreaWithImage(
                                             logoUrl = courseDetailUiState.data.logoUrl,
                                             imageUrl = courseDetailUiState.data.imageUrl,
                                             title = courseDetailUiState.data.title,
                                         )
                                     }
-                                        ?: TitleAreaWithoutImage(
-                                            logoUrl = courseDetailUiState.data.logoUrl,
-                                            title = courseDetailUiState.data.title,
-                                            shortDescription = courseDetailUiState.data.shortDescription!!
-                                        )
                                 }
 
                                 else -> Unit
@@ -139,8 +143,10 @@ class CourseDetailActivity : ComponentActivity() {
 
                                     is UiState.Success -> {
                                         courseDetailUiState.data.description?.let {
-                                            SubTitleWithDivider(subTitle = R.string.course_introduce)
-                                            DescriptionArea(markdown = courseDetailUiState.data.description)
+                                            if (courseDetailUiState.data.description.isNotBlank()) {
+                                                SubTitleWithDivider(subTitle = R.string.course_introduce)
+                                                DescriptionArea(markdown = courseDetailUiState.data.description)
+                                            }
                                         }
                                     }
 
@@ -219,7 +225,7 @@ class CourseDetailActivity : ComponentActivity() {
     private fun LoadingBar() {
         CircularProgressIndicator(
             modifier = Modifier.width(64.dp),
-            color = EliceTheme.colors.purple,
+            color = EliceTheme.colors.lightGray,
         )
     }
 
