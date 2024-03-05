@@ -3,6 +3,7 @@ package com.junwoo.elicemobliepa.presentation.detail
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -24,7 +27,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.junwoo.elicemobliepa.R
+import com.junwoo.elicemobliepa.presentation.util.UiState
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButton
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButtonModel
 import com.junwoo.elicemobliepa.presentation.widget.curriculum.TimelineView
@@ -42,14 +47,19 @@ class CourseDetailActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val detailViewModel by viewModels<CourseDetailViewModel>()
+
         setContent {
-            //CourseDetailScreen(model form server)
+            detailViewModel.getCourseDetail(courseId = 18817)
+            detailViewModel.getLectureList(courseId = 18817, offset = 0, count = 40)
+            CourseDetailScreen(viewModel = detailViewModel)
         }
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun CourseDetailScreen(model: CouresDetailModel) {
+    fun CourseDetailScreen(viewModel: CourseDetailViewModel) {
         EliceMobliePATheme {
             Scaffold(topBar = {
                 EliceTopBar(
@@ -61,7 +71,12 @@ class CourseDetailActivity : ComponentActivity() {
             })
             { innerPadding ->
 
-                val courseDetailModel: CouresDetailModel // collectAsState
+                val courseDetailUiState =
+                    viewModel.detailCourseStateFlow.collectAsStateWithLifecycle().value
+                val lectureUiState =
+                    viewModel.lectureListStateFlow.collectAsStateWithLifecycle().value
+
+
                 Column {
                     // infinity maxinum height 방지
                     LazyColumn(
@@ -73,18 +88,29 @@ class CourseDetailActivity : ComponentActivity() {
                     ) {
                         //Title Area
                         item {
-                            model.imageUrl?.let {
-                                TitleAreaWithImage(
-                                    logoUrl = model.logoUrl,
-                                    imageUrl = model.imageUrl,
-                                    title = model.title,
-                                )
+                            when (courseDetailUiState) {
+                                is UiState.Loading -> {
+                                    LoadingBar()
+                                }
+
+                                is UiState.Success -> {
+                                    courseDetailUiState.data.imageUrl?.let {
+                                        TitleAreaWithImage(
+                                            logoUrl = courseDetailUiState.data.logoUrl,
+                                            imageUrl = courseDetailUiState.data.imageUrl,
+                                            title = courseDetailUiState.data.title,
+                                        )
+                                    }
+                                        ?: TitleAreaWithoutImage(
+                                            logoUrl = courseDetailUiState.data.logoUrl,
+                                            title = courseDetailUiState.data.title,
+                                            shortDescription = courseDetailUiState.data.shortDescription!!
+                                        )
+                                }
+
+                                else -> Unit
                             }
-                                ?: TitleAreaWithoutImage(
-                                    logoUrl = model.logoUrl,
-                                    title = model.title,
-                                    shortDescription = model.shortDescription!!
-                                )
+
                             Spacer(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -94,23 +120,48 @@ class CourseDetailActivity : ComponentActivity() {
                         // Description Area
                         item {
                             Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                                model.description?.let {
-                                    SubTitleWithDivider(subTitle = R.string.course_introduce)
-                                    DescriptionArea(markdown = model.description)
+                                when (courseDetailUiState) {
+                                    is UiState.Loading -> {
+                                        LoadingBar()
+                                    }
+
+                                    is UiState.Success -> {
+                                        courseDetailUiState.data.description?.let {
+                                            SubTitleWithDivider(subTitle = R.string.course_introduce)
+                                            DescriptionArea(markdown = courseDetailUiState.data.description)
+                                        }
+                                    }
+
+                                    else -> Unit
                                 }
 
                                 SubTitleWithDivider(subTitle = R.string.course_curriculum)
                             }
                         }
                         // curriculumArea
-                        itemsIndexed(model.lectures) { index, item ->
-                            TimelineView(
-                                title = item.first,
-                                description = item.second,
-                                index = index,
-                                itemCount = model.lectures.size,
-                            )
+                        when (lectureUiState) {
+                            is UiState.Loading -> {
+                                item {
+                                    LoadingBar()
+                                }
+                            }
+
+                            is UiState.Success -> {
+                                itemsIndexed(lectureUiState.data) { index, item ->
+                                    TimelineView(
+                                        title = item.title!!,
+                                        description = item.description!!,
+                                        index = index,
+                                        itemCount = lectureUiState.data.size,
+                                    )
+                                }
+                            }
+
+                            else -> {
+                                Unit
+                            }
                         }
+
                     }
                     Surface {
                         SignUpButton(
@@ -128,7 +179,6 @@ class CourseDetailActivity : ComponentActivity() {
             }
         }
     }
-
 
     @Composable
     private fun SubTitleWithDivider(@StringRes subTitle: Int) {
@@ -153,13 +203,21 @@ class CourseDetailActivity : ComponentActivity() {
         Spacer(modifier = Modifier.height(8.dp))
     }
 
+    @Composable
+    private fun LoadingBar() {
+        CircularProgressIndicator(
+            modifier = Modifier.width(64.dp),
+            color = EliceTheme.colors.purple,
+        )
+    }
+
     @Preview
     @Composable
-    private fun PreviewCourseDeatilScreen(
+    private fun PreviewCourseDetailScreen(
         @PreviewParameter(CourseDeatilPreviewProvider::class) models: CouresDetailModel
     ) {
         EliceMobliePATheme {
-            CourseDetailScreen(model = models)
+            //CourseDetailScreen(model = models)
         }
     }
 }

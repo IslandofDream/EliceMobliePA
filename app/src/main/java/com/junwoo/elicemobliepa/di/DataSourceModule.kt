@@ -1,5 +1,6 @@
 package com.junwoo.elicemobliepa.di
 
+import com.junwoo.elicemobliepa.data.remote.DetailCourseDataSource
 import com.junwoo.elicemobliepa.data.remote.DetailCourseDataSourceImpl
 import com.junwoo.elicemobliepa.data.remote.EliceApi
 import dagger.Module
@@ -16,7 +17,7 @@ object DataSourceModule {
     @Singleton
     fun provideDetailDataSource(
         eliceApi: EliceApi
-    ): DetailCourseDataSourceImpl {
+    ): DetailCourseDataSource {
         return DetailCourseDataSourceImpl(eliceApi)
     }
 
