@@ -10,11 +10,11 @@ interface EliceApi {
 
     @GET("course/list/")
     suspend fun getCourses(
-        @Query("offset") offset: Int,
-        @Query("count") count: Int,
         @Query("filter_is_recommended") filterIsRecommended: Boolean? = null,
         @Query("filter_is_free") filterIsFree: Boolean? = null,
-        @Query("filter_conditions") filterConditions: String? = null // JSON String
+        @Query("filter_conditions") filterConditions: String? = null, // JSON String
+        @Query("offset") offset: Int,
+        @Query("count") count: Int,
     ): CourseListDTO
 
     @GET("course/get/")

@@ -78,32 +78,26 @@ class HomeActivity : ComponentActivity() {
                         .padding(innerPadding)
                         .verticalScroll(scrollState)
                 ) {
-                    val recommendCourse = homeViewModel.getCourses(
-                        filterIsRecommended = true,
-                        filterIsFree = false,
-                        filterConditions = null
+                    val freeCourses = homeViewModel.getCourses(
+                        filterIsFree = true
                     ).collectAsLazyPagingItems()
 
-                    val freeCourse = homeViewModel.getCourses(
-                        filterIsRecommended = false,
-                        filterIsFree = true,
-                        filterConditions = null
+                    val recommendCourses = homeViewModel.getCourses(
+                        filterIsRecommended = true
                     ).collectAsLazyPagingItems()
 
-                    val myCourse = homeViewModel.getCourses(
-                        filterIsRecommended = true,
-                        filterIsFree = true,
-                        filterConditions = null
-                    ).collectAsLazyPagingItems() // 추후 수정
+                    val myCourses = homeViewModel.getCourses(
+                        filterCondition = true
+                    ).collectAsLazyPagingItems()
 
                     Spacer(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(8.dp)
                     )
-                    CourseSection(text = R.string.home_free_course, courseCards = recommendCourse)
-                    CourseSection(text = R.string.home_recommend_course, courseCards = freeCourse)
-                    CourseSection(text = R.string.home_my_course, courseCards = myCourse)
+                    CourseSection(text = R.string.home_free_course, courseCards = freeCourses)
+                    CourseSection(text = R.string.home_recommend_course, courseCards = recommendCourses)
+                    CourseSection(text = R.string.home_my_course, courseCards = myCourses)
                 }
             }
         }
@@ -133,7 +127,7 @@ class HomeActivity : ComponentActivity() {
     private fun CourseSectionTitle(@StringRes text: Int) {
         Text(
             text = stringResource(id = text),
-            style = EliceTheme.typography.homeTitle,
+            style = EliceTheme.typography.homeSectionTitle,
             color = EliceTheme.colors.black
         )
     }
