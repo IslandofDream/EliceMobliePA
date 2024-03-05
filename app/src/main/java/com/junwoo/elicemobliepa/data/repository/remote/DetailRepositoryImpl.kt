@@ -1,4 +1,4 @@
-package com.junwoo.elicemobliepa.data.repository
+package com.junwoo.elicemobliepa.data.repository.remote
 
 import com.junwoo.elicemobliepa.core.ApiResult
 import com.junwoo.elicemobliepa.data.mapper.CourseDetailMapper
@@ -6,7 +6,7 @@ import com.junwoo.elicemobliepa.data.mapper.LectureMapper
 import com.junwoo.elicemobliepa.data.remote.DetailCourseDataSource
 import com.junwoo.elicemobliepa.domain.entity.CourseDetailEntity
 import com.junwoo.elicemobliepa.domain.entity.LectureEntity
-import com.junwoo.elicemobliepa.domain.repository.DetailRepository
+import com.junwoo.elicemobliepa.domain.repository.remote.DetailRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

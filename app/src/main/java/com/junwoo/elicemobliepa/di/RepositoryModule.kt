@@ -1,9 +1,11 @@
 package com.junwoo.elicemobliepa.di
 
-import com.junwoo.elicemobliepa.data.repository.DetailRepositoryImpl
-import com.junwoo.elicemobliepa.data.repository.HomeRepositoryImpl
-import com.junwoo.elicemobliepa.domain.repository.DetailRepository
-import com.junwoo.elicemobliepa.domain.repository.HomeRepository
+import com.junwoo.elicemobliepa.data.repository.local.DataStoreRepositoryImpl
+import com.junwoo.elicemobliepa.data.repository.remote.DetailRepositoryImpl
+import com.junwoo.elicemobliepa.data.repository.remote.HomeRepositoryImpl
+import com.junwoo.elicemobliepa.domain.repository.local.DataStoreRepository
+import com.junwoo.elicemobliepa.domain.repository.remote.DetailRepository
+import com.junwoo.elicemobliepa.domain.repository.remote.HomeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

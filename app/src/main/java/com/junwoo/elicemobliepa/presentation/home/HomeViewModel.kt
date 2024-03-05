@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
-import com.junwoo.elicemobliepa.domain.repository.HomeRepository
+import com.junwoo.elicemobliepa.domain.repository.remote.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

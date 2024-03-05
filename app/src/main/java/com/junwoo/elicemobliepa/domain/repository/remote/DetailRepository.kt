@@ -1,4 +1,4 @@
-package com.junwoo.elicemobliepa.domain.repository
+package com.junwoo.elicemobliepa.domain.repository.remote
 
 import com.junwoo.elicemobliepa.core.ApiResult
 import com.junwoo.elicemobliepa.domain.entity.CourseDetailEntity
