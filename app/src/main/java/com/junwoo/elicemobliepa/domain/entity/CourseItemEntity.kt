@@ -1,6 +1,7 @@
 package com.junwoo.elicemobliepa.domain.entity
 
-class CourseItemEntity (
+class CourseItemEntity(
+    val id: Int,
     val imageFileUrl: String?,
     val logoFileUrl: String,
     val title: String,

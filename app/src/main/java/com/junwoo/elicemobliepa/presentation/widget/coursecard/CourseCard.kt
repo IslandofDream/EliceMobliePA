@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.junwoo.elicemobliepa.R
+import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
 import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
@@ -40,7 +41,7 @@ data class CourseCardModel(
 
 @Composable
 fun CourseCard(
-    courseCardModel: CourseCardModel, onClick: () -> Unit
+    courseCardModel: CourseItemEntity, onClick: () -> Unit
 ) {
     val spacer2 = dimensionResource(id = R.dimen.spacer_2)
     val spacer8 = dimensionResource(id = R.dimen.spacer_8)
@@ -130,7 +131,7 @@ FlowRow를 활용하여 자동으로 Tag들이 넘어가도록 설정
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun CourseTagList(tags: List<String>) {
+private fun CourseTagList(tags: List<String?>) {
     FlowRow(
         modifier = Modifier
             .height(35.dp)
@@ -141,7 +142,7 @@ private fun CourseTagList(tags: List<String>) {
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         tags.forEach { tag ->
-            CourseCardTag(content = tag)
+            tag?.let { CourseCardTag(content = tag) }
         }
     }
 }
@@ -149,7 +150,7 @@ private fun CourseTagList(tags: List<String>) {
 @Composable
 @Preview(device = Devices.PHONE)
 private fun PreViewHomeCourseCard(
-    @PreviewParameter(CourseCardPreviewProvider::class) courseCardModel: CourseCardModel
+    @PreviewParameter(CourseCardPreviewProvider::class) courseCardModel: CourseItemEntity
 ) {
     EliceMobliePATheme {
         CourseCard(courseCardModel) {}

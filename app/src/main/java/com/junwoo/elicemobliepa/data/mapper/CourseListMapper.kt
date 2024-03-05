@@ -9,6 +9,7 @@ class CourseListMapper : BaseMapper<CourseListDTO, List<CourseItemEntity>> {
         from.courses?.let {
             it.asSequence().map { field ->
                 CourseItemEntity(
+                    id = field?.id ?: 0,
                     imageFileUrl = field?.imageFileUrl,
                     logoFileUrl = field?.logoFileUrl ?: "",
                     title = field?.title ?: "",
