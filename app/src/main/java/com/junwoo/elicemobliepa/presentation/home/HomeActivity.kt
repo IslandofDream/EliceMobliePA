@@ -1,5 +1,6 @@
 package com.junwoo.elicemobliepa.presentation.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +29,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.junwoo.elicemobliepa.R
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
+import com.junwoo.elicemobliepa.presentation.detail.CourseDetailActivity
 import com.junwoo.elicemobliepa.presentation.widget.coursecard.CourseCard
 import com.junwoo.elicemobliepa.presentation.widget.topbar.EliceTopBar
 import com.junwoo.elicemobliepa.presentation.widget.topbar.EliceTopBarModel
@@ -40,6 +42,10 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
+
+    companion object {
+        const val COURSE_ID_KEY = "course_id"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,7 +146,10 @@ class HomeActivity : ComponentActivity() {
         ) {
             items(courseCards.itemCount) { course ->
                 CourseCard(courseCardModel = courseCards[course]!!) {
-                    //TODO 강의 상세조회 이동
+                    startActivity(
+                        Intent(this@HomeActivity, CourseDetailActivity::class.java)
+                            .putExtra(COURSE_ID_KEY, courseCards[course]!!.id)
+                    )
                 }
                 courseCards.apply {
                     when {

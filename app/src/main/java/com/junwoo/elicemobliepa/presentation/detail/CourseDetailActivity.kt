@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.junwoo.elicemobliepa.R
+import com.junwoo.elicemobliepa.presentation.home.HomeActivity
 import com.junwoo.elicemobliepa.presentation.util.UiState
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButton
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButtonModel
@@ -45,14 +46,25 @@ import dev.jeziellago.compose.markdowntext.MarkdownText
 @AndroidEntryPoint
 class CourseDetailActivity : ComponentActivity() {
 
+    companion object {
+        private const val OFFSET = 0
+        private const val COUNT = 40
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val detailViewModel by viewModels<CourseDetailViewModel>()
 
         setContent {
-            detailViewModel.getCourseDetail(courseId = 18817)
-            detailViewModel.getLectureList(courseId = 18817, offset = 0, count = 40)
+            val intentCourseId = intent.getIntExtra(HomeActivity.COURSE_ID_KEY, 0)
+
+            detailViewModel.getCourseDetail(courseId = intentCourseId)
+            detailViewModel.getLectureList(
+                courseId = intentCourseId,
+                offset = OFFSET,
+                count = COUNT
+            )
             CourseDetailScreen(viewModel = detailViewModel)
         }
     }
@@ -134,7 +146,7 @@ class CourseDetailActivity : ComponentActivity() {
 
                                     else -> Unit
                                 }
-
+                                Spacer(modifier = Modifier.height(8.dp))
                                 SubTitleWithDivider(subTitle = R.string.course_curriculum)
                             }
                         }
