@@ -1,6 +1,8 @@
 package com.junwoo.elicemobliepa.di
 
+import com.junwoo.elicemobliepa.data.repository.DetailRepositoryImpl
 import com.junwoo.elicemobliepa.data.repository.HomeRepositoryImpl
+import com.junwoo.elicemobliepa.domain.repository.DetailRepository
 import com.junwoo.elicemobliepa.domain.repository.HomeRepository
 import dagger.Binds
 import dagger.Module
@@ -15,4 +17,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindToHomeRepository(homeRepositoryImpl: HomeRepositoryImpl): HomeRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindToDetailRepository(detailRepositoryImpl: DetailRepositoryImpl): DetailRepository
 }
