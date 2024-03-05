@@ -2,6 +2,7 @@ package com.junwoo.elicemobliepa.di
 
 import com.junwoo.elicemobliepa.BuildConfig
 import com.junwoo.elicemobliepa.data.remote.EliceApi
+import com.junwoo.elicemobliepa.data.util.Constant.TIME_OUT
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +21,16 @@ object ServiceModule {
 
     @Provides
     @Singleton
+    fun providesHeaderInterceptor() = Interceptor { chain ->
+        with(chain) {
+            val request = request().newBuilder()
+                .build()
+            proceed(request)
+        }
+    }
+
+    @Provides
+    @Singleton
     fun providesLoggerInterceptor() = HttpLoggingInterceptor().apply {
         level = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor.Level.BODY
@@ -35,9 +46,9 @@ object ServiceModule {
         loggerInterceptor: HttpLoggingInterceptor
     ) =
         OkHttpClient.Builder()
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .writeTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+            .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
+            .readTimeout(TIME_OUT, TimeUnit.SECONDS)
             .addInterceptor(headerInterceptor)
             .addInterceptor(loggerInterceptor)
             .build()
