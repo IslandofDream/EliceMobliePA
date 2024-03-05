@@ -6,13 +6,15 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
 import com.junwoo.elicemobliepa.domain.repository.remote.HomeRepository
+import com.junwoo.elicemobliepa.domain.usecase.GetSavedMyCourseListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeRepository: HomeRepository
+    private val homeRepository: HomeRepository,
+    private val getSavedMyCourseList: GetSavedMyCourseListUseCase
 ) : ViewModel() {
 
     fun getCourses(
