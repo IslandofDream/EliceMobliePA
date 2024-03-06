@@ -5,11 +5,14 @@
 
 </aside>
 
-### 개발방식
+## 개발방식
 
 Android jetpack Compose 기반으로 구성하였습니다. 아키텍처 구조는 클린아키텍처 기반으로 하였으며 그에 따라서 패키징 또한 Data / Domain / Presentation 으로 나누었습니다.
 
-### 기술스택
+### 아키텍처 구조
+![클린아키텍처](https://github.com/IslandofDream/EliceMobliePA/assets/70648111/ff41f9d3-8115-48b7-be0b-bdd1e77fc96b)
+
+## 기술스택
 
 - Jetpack Compose
 - Jetpack Paging3
@@ -21,7 +24,7 @@ Android jetpack Compose 기반으로 구성하였습니다. 아키텍처 구조�
 - Okhttp
 - Preference DataStore
 
-### 커밋 컨벤션
+## 커밋 컨벤션
 
 ```kotlin
 [type] subject
