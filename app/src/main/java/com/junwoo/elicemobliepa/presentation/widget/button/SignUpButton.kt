@@ -1,5 +1,6 @@
 package com.junwoo.elicemobliepa.presentation.widget.button
 
+import android.os.SystemClock
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +14,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -36,6 +41,7 @@ fun SignUpButton(
     model: SignUpButtonModel,
     applied: Boolean,
     isLoading: Boolean,
+    debounceInterval: Long = 300L, // 기본 디바운스 인터벌은 300ms로 설정
     onClick: () -> Unit
 ) {
 
@@ -43,8 +49,15 @@ fun SignUpButton(
     val text =
         if (applied) stringResource(id = model.withdrawalText) else stringResource(id = model.enrollText)
 
+    var lastClickTime by remember { mutableStateOf(0L) }
+
     Button(
-        onClick = onClick,
+        onClick = {
+            if ((SystemClock.elapsedRealtime() - lastClickTime) > debounceInterval) {
+                lastClickTime = SystemClock.elapsedRealtime()
+                onClick()
+            }
+        },
         modifier = Modifier
             .height(48.dp)
             .fillMaxWidth()
