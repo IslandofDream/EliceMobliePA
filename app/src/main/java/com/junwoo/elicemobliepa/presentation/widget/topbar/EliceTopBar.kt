@@ -2,8 +2,6 @@ package com.junwoo.elicemobliepa.presentation.widget.topbar
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +20,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.junwoo.elicemobliepa.R
 import com.junwoo.elicemobliepa.presentation.util.rippleClickable
-import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
+import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 
 data class EliceTopBarModel(
     val topBarLeftSection: TopBarLeftSection,
@@ -113,7 +111,7 @@ private fun TopBarRightSection(topBarRightSection: TopBarRightSection, onClick: 
 private fun PreviewTopBar(
     @PreviewParameter(EliceTopBarPreviewProvider::class) models: EliceTopBarModel
 ) {
-    EliceMobliePATheme {
+    EliceMobilePATheme {
         EliceTopBar(model = models, onLeftClick = {}, onRightClick = {})
     }
 }

@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
+import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
 data class SignUpButtonModel(
@@ -71,7 +71,7 @@ fun SignUpButton(
 @Composable
 @Preview(device = Devices.PHONE)
 private fun SignUpButtonPreview() {
-    EliceMobliePATheme {
+    EliceMobilePATheme {
         Column(
             modifier = Modifier.background(Color.Gray),
             verticalArrangement = Arrangement.spacedBy(10.dp),

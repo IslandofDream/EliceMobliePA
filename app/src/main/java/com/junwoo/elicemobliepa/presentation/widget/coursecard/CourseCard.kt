@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.junwoo.elicemobliepa.R
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
-import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
+import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
 data class CourseCardModel(
@@ -153,7 +153,7 @@ private fun CourseTagList(tags: List<String?>) {
 private fun PreViewHomeCourseCard(
     @PreviewParameter(CourseCardPreviewProvider::class) courseCardModel: CourseItemEntity
 ) {
-    EliceMobliePATheme {
+    EliceMobilePATheme {
         CourseCard(courseCardModel) {}
     }
 }

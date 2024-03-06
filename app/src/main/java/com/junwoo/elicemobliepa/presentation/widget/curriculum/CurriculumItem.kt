@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.junwoo.elicemobliepa.R
-import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
+import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
 @Composable
@@ -137,7 +137,7 @@ private fun CurriculumItem(items: List<Pair<String, String>>) {
 private fun CurriculumPreview(
     @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<Pair<String, String>>
 ) {
-    EliceMobliePATheme {
+    EliceMobilePATheme {
         CurriculumItem(items = curriculums)
     }
 }

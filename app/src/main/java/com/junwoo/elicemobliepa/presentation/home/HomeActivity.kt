@@ -41,7 +41,7 @@ import com.junwoo.elicemobliepa.presentation.widget.topbar.EliceTopBar
 import com.junwoo.elicemobliepa.presentation.widget.topbar.EliceTopBarModel
 import com.junwoo.elicemobliepa.presentation.widget.topbar.TopBarLeftSection
 import com.junwoo.elicemobliepa.presentation.widget.topbar.TopBarRightSection
-import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
+import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -70,7 +70,7 @@ class HomeActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun HomeScreen() {
-        EliceMobliePATheme {
+        EliceMobilePATheme {
             Scaffold(topBar = {
                 EliceTopBar(
                     model = EliceTopBarModel(

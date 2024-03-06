@@ -18,7 +18,7 @@ object EliceTheme {
 }
 
 @Composable
-fun EliceMobliePATheme(
+fun EliceMobilePATheme(
     darkTheme: Boolean = false,
     content: @Composable () -> Unit,
 ) {

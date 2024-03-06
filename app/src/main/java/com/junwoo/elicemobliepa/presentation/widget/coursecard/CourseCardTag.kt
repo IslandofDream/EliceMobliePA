@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
+import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
 @Composable
@@ -41,7 +41,7 @@ fun CourseCardTag(content: String) {
 private fun PreviewCourseCardTag(
     @PreviewParameter(CourseTagPreviewProvider::class) tagList: String
 ) {
-    EliceMobliePATheme {
+    EliceMobilePATheme {
         CourseCardTag(content = tagList)
     }
 }

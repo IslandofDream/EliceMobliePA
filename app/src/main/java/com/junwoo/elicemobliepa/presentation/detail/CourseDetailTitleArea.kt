@@ -27,7 +27,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.junwoo.elicemobliepa.R
 import com.junwoo.elicemobliepa.presentation.util.PreViewDummy
-import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
+import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
 @Composable
@@ -128,7 +128,7 @@ private fun LogoWithCard(size: Int, logoUrl: String) {
 @Preview
 @Composable
 private fun PreviewTitleAreaWithoutImage() {
-    EliceMobliePATheme {
+    EliceMobilePATheme {
         TitleAreaWithoutImage(
             logoUrl = PreViewDummy.TEST_LOGO,
             title = "title",
@@ -140,7 +140,7 @@ private fun PreviewTitleAreaWithoutImage() {
 @Preview
 @Composable
 private fun PreviewTitleAreaWithImage() {
-    EliceMobliePATheme {
+    EliceMobilePATheme {
         TitleAreaWithImage(
             logoUrl = PreViewDummy.TEST_LOGO,
             imageUrl = PreViewDummy.TEST_IMAGE,
