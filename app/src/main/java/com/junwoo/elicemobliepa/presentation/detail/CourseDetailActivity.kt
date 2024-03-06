@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,6 +32,8 @@ import com.junwoo.elicemobliepa.domain.entity.LectureEntity
 import com.junwoo.elicemobliepa.presentation.detail.preview.CouresDetailPreviewModel
 import com.junwoo.elicemobliepa.presentation.detail.preview.CourseDeatilPreviewProvider
 import com.junwoo.elicemobliepa.presentation.home.HomeActivity
+import com.junwoo.elicemobliepa.presentation.util.Spacer16
+import com.junwoo.elicemobliepa.presentation.util.Spacer8
 import com.junwoo.elicemobliepa.presentation.util.UiState
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButton
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButtonModel
@@ -113,14 +114,17 @@ class CourseDetailActivity : ComponentActivity() {
                         //Title Area
                         item {
                             TitleArea(courseDetailUiState = courseDetailUiState)
+                            Spacer16()
                         }
                         // Description Area
                         item {
                             DescriptionArea(courseDetailUiState = courseDetailUiState)
+                            Spacer8()
                         }
                         // curriculum Area
                         item {
                             CurriculumArea(lectureUiState = lectureUiState)
+                            Spacer8()
                         }
                     }
                     Surface {
@@ -135,7 +139,7 @@ class CourseDetailActivity : ComponentActivity() {
                             isLoading = isLoading
                         ) { viewModel.singUpCourse(courseId, isApplied) }
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer16()
                 }
             }
         }
@@ -168,12 +172,6 @@ class CourseDetailActivity : ComponentActivity() {
             else -> Unit
         }
 
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(16.dp)
-        )
-
     }
 
     @Composable
@@ -188,15 +186,16 @@ class CourseDetailActivity : ComponentActivity() {
                 courseDetailUiState.data.description?.let {
                     if (courseDetailUiState.data.description.isNotBlank()) {
                         SubTitleWithDivider(subTitle = R.string.course_introduce)
-                        MarkDownArea(markdown = courseDetailUiState.data.description)
+                        MarkdownText(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            markdown = courseDetailUiState.data.description
+                        )
                     }
                 }
             }
 
             else -> Unit
         }
-        Spacer(modifier = Modifier.height(8.dp))
-
     }
 
     @Composable
@@ -229,6 +228,7 @@ class CourseDetailActivity : ComponentActivity() {
     @Composable
     private fun SubTitleWithDivider(@StringRes subTitle: Int) {
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Spacer8()
             Text(
                 text = stringResource(id = subTitle),
                 style = EliceTheme.typography.courseSubTitle,
@@ -241,12 +241,6 @@ class CourseDetailActivity : ComponentActivity() {
                     .height(1.dp)
             )
         }
-    }
-
-    @Composable
-    private fun MarkDownArea(markdown: String) {
-        MarkdownText(modifier = Modifier.padding(horizontal = 16.dp), markdown = markdown)
-        Spacer(modifier = Modifier.height(8.dp))
     }
 
     @Composable

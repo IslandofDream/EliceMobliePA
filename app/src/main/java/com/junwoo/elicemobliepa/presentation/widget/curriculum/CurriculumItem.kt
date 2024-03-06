@@ -4,9 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -21,13 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.junwoo.elicemobliepa.R
+import com.junwoo.elicemobliepa.presentation.util.Spacer4
+import com.junwoo.elicemobliepa.presentation.util.Spacer8
 import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
@@ -40,9 +38,6 @@ fun TimelineView(
 ) {
     // 제목, Description에 따른 높이 변화를 저장하는 함수
     var height by remember { mutableStateOf(0) }
-
-    val spacer4 = dimensionResource(id = R.dimen.spacer_4)
-    val spacer8 = dimensionResource(id = R.dimen.spacer_8)
 
     val circleSize = 16.dp
     val lineWidth = 2.dp
@@ -63,27 +58,15 @@ fun TimelineView(
                 .padding(start = circleSize + spaceBetweenTimeLineAndText)
         ) {
             Column {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(spacer8)
-                )
+                Spacer8()
                 Text(
                     text = title, style = EliceTheme.typography.curriculumTitle,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(spacer4)
-                )
+                Spacer4()
                 Text(text = description, style = EliceTheme.typography.curriculumDescription)
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(spacer8)
-                )
+                Spacer8()
             }
         }
 

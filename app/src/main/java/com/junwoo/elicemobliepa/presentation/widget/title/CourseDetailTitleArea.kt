@@ -5,13 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -27,6 +24,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.junwoo.elicemobliepa.R
 import com.junwoo.elicemobliepa.presentation.util.PreViewDummy
+import com.junwoo.elicemobliepa.presentation.util.Spacer8
 import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
@@ -34,31 +32,19 @@ import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 fun TitleAreaWithoutImage(logoUrl: String, title: String, shortDescription: String) { //
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         LogoWithCard(size = 56, logoUrl = logoUrl)
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-        )
+        Spacer8()
         Text(
             text = title,
             style = EliceTheme.typography.courseTitleLarge,
             color = EliceTheme.colors.black
         )
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-        )
+        Spacer8()
         Text(
             text = shortDescription,
             style = EliceTheme.typography.courseSubTitleSmall,
             color = EliceTheme.colors.black
         )
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-        )
+        Spacer8()
     }
 }
 
@@ -79,11 +65,7 @@ fun TitleAreaWithImage(
             verticalAlignment = Alignment.CenterVertically
         ) {
             LogoWithCard(size = 36, logoUrl = logoUrl)
-            Spacer(
-                modifier = Modifier
-                    .height(36.dp)
-                    .width(8.dp)
-            )
+            Spacer8()
             Text(
                 text = title,
                 style = EliceTheme.typography.courseTitleSmall,

@@ -9,7 +9,6 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,6 +35,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.junwoo.elicemobliepa.R
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
 import com.junwoo.elicemobliepa.presentation.detail.CourseDetailActivity
+import com.junwoo.elicemobliepa.presentation.util.Spacer8
 import com.junwoo.elicemobliepa.presentation.widget.coursecard.CourseCard
 import com.junwoo.elicemobliepa.presentation.widget.topbar.EliceTopBar
 import com.junwoo.elicemobliepa.presentation.widget.topbar.EliceTopBarModel
@@ -94,11 +94,7 @@ class HomeActivity : ComponentActivity() {
                     val recommendCourses = homeViewModel.recommendCourses.collectAsLazyPagingItems()
                     val myCourses = homeViewModel.myCourses.collectAsLazyPagingItems()
 
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(8.dp)
-                    )
+                    Spacer8()
                     CourseSection(text = R.string.home_free_course, courseCards = freeCourses)
                     CourseSection(
                         text = R.string.home_recommend_course,
@@ -122,11 +118,7 @@ class HomeActivity : ComponentActivity() {
         ) {
             CourseSectionTitle(text = text)
             CourseList(courseCards = courseCards)
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(8.dp)
-            )
+            Spacer8()
         }
     }
 
