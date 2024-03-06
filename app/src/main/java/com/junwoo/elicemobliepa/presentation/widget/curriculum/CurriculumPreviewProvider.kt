@@ -2,18 +2,53 @@ package com.junwoo.elicemobliepa.presentation.widget.curriculum
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
-class CurriculumPreviewProvider : PreviewParameterProvider<List<Pair<String, String>>> {
-    override val values: Sequence<List<Pair<String, String>>>
+class CurriculumPreviewProvider : PreviewParameterProvider<List<TimeLineModel>> {
+    override val values: Sequence<List<TimeLineModel>>
         get() = sequenceOf(
             listOf(
-                Pair("첫 번째 이야기", "dkdkdkkdkdkdkd"),
+                TimeLineModel(
+                    title = "첫 번째 이야기",
+                    description = "엘리스 토끼",
+                    index = 1,
+                    itemCount = 1
+                )
             ),
             listOf(
-                Pair("첫 번째 이야기", "dkdkdkkdkdkdkd"),
-                Pair("두 번째 이야기", "짧은 설명"),
-                Pair("세 번째 이야기", "짧지만 두줄\n 설명"),
-                Pair("네 번째 이야기\n", "안녕\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"),
-                Pair("다섯번째 이야기", "그래")
-            ),
+                TimeLineModel(
+                    title = "첫 번째 이야기",
+                    description = "엘리스 토끼",
+                    index = 1,
+                    itemCount = 6
+                ),
+                TimeLineModel(
+                    title = "첫 번째 이야기",
+                    description = "짧은 설명",
+                    index = 2,
+                    itemCount = 6
+                ),
+                TimeLineModel(
+                    title = "첫 번째 이야기",
+                    description = "짧지만 두줄\n 설명",
+                    index = 3,
+                    itemCount = 6
+                ),
+                TimeLineModel(
+                    title = "첫 번째 이야기",
+                    description = "긴 설명 \n\n\n\n\n\n\n\n\n",
+                    index = 4,
+                    itemCount = 6
+                ), TimeLineModel(
+                    title = "첫 번째 이야기",
+                    description = "엘리스 토끼",
+                    index = 5,
+                    itemCount = 6
+                ), TimeLineModel(
+                    title = "첫 번째 이야기",
+                    description = "엘리스 토끼",
+                    index = 6,
+                    itemCount = 6
+                )
+            )
         )
+
 }

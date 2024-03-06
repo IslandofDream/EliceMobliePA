@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,12 +28,16 @@ import com.junwoo.elicemobliepa.presentation.util.Spacer8
 import com.junwoo.elicemobliepa.ui.theme.EliceMobilePATheme
 import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
+data class TimeLineModel(
+    val title: String,
+    val description: String,
+    val index: Int,
+    val itemCount: Int
+)
+
 @Composable
-fun TimelineView(
-    title: String,
-    description: String,
-    index: Int,
-    itemCount: Int,
+fun TimeLineView(
+    model: TimeLineModel
 ) {
     // 제목, Description에 따른 높이 변화를 저장하는 함수
     var height by remember { mutableStateOf(0) }
@@ -60,12 +63,12 @@ fun TimelineView(
             Column {
                 Spacer8()
                 Text(
-                    text = title, style = EliceTheme.typography.curriculumTitle,
+                    text = model.title, style = EliceTheme.typography.curriculumTitle,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer4()
-                Text(text = description, style = EliceTheme.typography.curriculumDescription)
+                Text(text = model.description, style = EliceTheme.typography.curriculumDescription)
                 Spacer8()
             }
         }
@@ -79,7 +82,7 @@ fun TimelineView(
 
             // 선 그리기
             // 마지막 원의 경우 선을 그리지 않음
-            if (index < itemCount - 1) {
+            if (model.index < model.itemCount - 1) {
                 drawLine(
                     color = timeLineColor,
                     start = lineStart,
@@ -98,49 +101,72 @@ fun TimelineView(
     }
 }
 
-@Composable
-private fun CurriculumItem(items: List<Pair<String, String>>) {
-
-    Box {
-        LazyColumn(modifier = Modifier.matchParentSize()) {
-            itemsIndexed(items) { index, item ->
-                TimelineView(
-                    title = item.first,
-                    description = item.second,
-                    index = index,
-                    itemCount = items.size,
-                )
-            }
-        }
-    }
-}
 
 @Preview(device = Devices.PHONE)
 @Composable
 private fun CurriculumPreview(
-    @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<Pair<String, String>>
+    @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<TimeLineModel>
 ) {
     EliceMobilePATheme {
-        CurriculumItem(items = curriculums)
+        LazyColumn {
+            item {
+                curriculums.forEachIndexed { index, item ->
+                    TimeLineView(
+                        TimeLineModel(
+                            title = item.title,
+                            description = item.description,
+                            index = index,
+                            itemCount = curriculums.size,
+                        )
+                    )
+                }
+            }
+        }
     }
 }
 
 @Preview(device = Devices.FOLDABLE)
 @Composable
 private fun CurriculumPreviewFoldable(
-    @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<Pair<String, String>>
+    @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<TimeLineModel>
 ) {
     EliceMobilePATheme {
-        CurriculumItem(items = curriculums)
+        LazyColumn {
+            item {
+                curriculums.forEachIndexed { index, item ->
+                    TimeLineView(
+                        TimeLineModel(
+                            title = item.title,
+                            description = item.description,
+                            index = index,
+                            itemCount = curriculums.size,
+                        )
+                    )
+                }
+            }
+        }
     }
 }
 
 @Preview(device = Devices.TABLET)
 @Composable
 private fun CurriculumPreviewTablet(
-    @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<Pair<String, String>>
+    @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<TimeLineModel>
 ) {
     EliceMobilePATheme {
-        CurriculumItem(items = curriculums)
+        LazyColumn {
+            item {
+                curriculums.forEachIndexed { index, item ->
+                    TimeLineView(
+                        TimeLineModel(
+                            title = item.title,
+                            description = item.description,
+                            index = index,
+                            itemCount = curriculums.size,
+                        )
+                    )
+                }
+            }
+        }
     }
 }

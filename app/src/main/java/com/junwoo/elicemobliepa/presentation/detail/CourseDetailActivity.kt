@@ -35,7 +35,8 @@ import com.junwoo.elicemobliepa.presentation.util.Spacer8
 import com.junwoo.elicemobliepa.presentation.util.UiState
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButton
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButtonModel
-import com.junwoo.elicemobliepa.presentation.widget.curriculum.TimelineView
+import com.junwoo.elicemobliepa.presentation.widget.curriculum.TimeLineModel
+import com.junwoo.elicemobliepa.presentation.widget.curriculum.TimeLineView
 import com.junwoo.elicemobliepa.presentation.widget.loading.CircularLoading
 import com.junwoo.elicemobliepa.presentation.widget.title.TitleAreaWithImage
 import com.junwoo.elicemobliepa.presentation.widget.title.TitleAreaWithoutImage
@@ -209,11 +210,13 @@ class CourseDetailActivity : ComponentActivity() {
                 if (lectureUiState.data.isNotEmpty()) {
                     SubTitleWithDivider(subTitle = R.string.course_curriculum)
                     lectureUiState.data.forEachIndexed { index, item ->
-                        TimelineView(
-                            title = item.title!!,
-                            description = item.description!!,
-                            index = index,
-                            itemCount = lectureUiState.data.size,
+                        TimeLineView(
+                            TimeLineModel(
+                                title = item.title!!,
+                                description = item.description!!,
+                                index = index,
+                                itemCount = lectureUiState.data.size,
+                            )
                         )
                     }
                 }
