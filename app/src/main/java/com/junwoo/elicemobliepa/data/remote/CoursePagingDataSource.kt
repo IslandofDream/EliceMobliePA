@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.junwoo.elicemobliepa.data.mapper.CourseListMapper
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
-import timber.log.Timber
 
 class CoursePagingSource(
     private val service: EliceApi,

@@ -1,4 +1,4 @@
-package com.junwoo.elicemobliepa.data.repository.home
+package com.junwoo.elicemobliepa.data.repository.detail
 
 import com.junwoo.elicemobliepa.core.ApiResult
 import com.junwoo.elicemobliepa.data.mapper.CourseDetailMapper

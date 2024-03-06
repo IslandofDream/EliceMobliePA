@@ -1,4 +1,4 @@
-package com.junwoo.elicemobliepa.data.repository.detail
+package com.junwoo.elicemobliepa.data.repository.home
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
