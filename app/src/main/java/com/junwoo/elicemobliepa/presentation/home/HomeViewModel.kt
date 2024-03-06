@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
-import com.junwoo.elicemobliepa.domain.repository.home.HomeRepository
+import com.junwoo.elicemobliepa.domain.usecase.FetchCourseItemsUseCase
 import com.junwoo.elicemobliepa.domain.usecase.GetSavedMyCourseListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeRepository: HomeRepository,
+    private val fetchCourseItemsUseCase: FetchCourseItemsUseCase,
     private val getSavedMyCourseListUseCase: GetSavedMyCourseListUseCase
 ) : ViewModel() {
 
@@ -61,7 +61,7 @@ class HomeViewModel @Inject constructor(
         filterConditions: List<Int>? = null
     ) = viewModelScope.launch {
         runCatching {
-            homeRepository.fetchCourseItems(
+            fetchCourseItemsUseCase(
                 filterIsRecommended = filterIsRecommended,
                 filterIsFree = filterIsFree,
                 filterConditions = filterConditions

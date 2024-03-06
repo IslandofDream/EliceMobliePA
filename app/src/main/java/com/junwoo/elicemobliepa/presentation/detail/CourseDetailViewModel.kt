@@ -7,6 +7,10 @@ import com.junwoo.elicemobliepa.domain.entity.CourseDetailEntity
 import com.junwoo.elicemobliepa.domain.entity.LectureEntity
 import com.junwoo.elicemobliepa.domain.repository.datastore.DataStoreRepository
 import com.junwoo.elicemobliepa.domain.repository.detail.DetailRepository
+import com.junwoo.elicemobliepa.domain.usecase.GetCourseDetailUseCase
+import com.junwoo.elicemobliepa.domain.usecase.GetCurriculumLectureListUseCase
+import com.junwoo.elicemobliepa.domain.usecase.GetSavedMyCourseListUseCase
+import com.junwoo.elicemobliepa.domain.usecase.SaveMyCourseListUseCase
 import com.junwoo.elicemobliepa.presentation.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,8 +21,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CourseDetailViewModel @Inject constructor(
-    private val detailRepository: DetailRepository,
-    private val dataStoreRepository: DataStoreRepository,
+    private val getCourseDetailUseCase: GetCourseDetailUseCase,
+    private val getCurriculumLectureListUseCase: GetCurriculumLectureListUseCase,
+    private val getSavedMyCourseListUseCase: GetSavedMyCourseListUseCase,
+    private val savedMyCourseListUseCase: SaveMyCourseListUseCase,
 ) : ViewModel() {
 
     private val _detailCourseStateFlow = MutableStateFlow<UiState<CourseDetailEntity>>(UiState.Init)
@@ -37,7 +43,7 @@ class CourseDetailViewModel @Inject constructor(
     fun checkApplied(courseId: Int) {
         viewModelScope.launch {
             _appliedStateFlow.value =
-                dataStoreRepository.getMyCourseList().first().toMutableList().contains(courseId)
+                getSavedMyCourseListUseCase().first().toMutableList().contains(courseId)
             _isLoadingStateFlow.value = false
         }
     }
@@ -45,12 +51,12 @@ class CourseDetailViewModel @Inject constructor(
     fun singUpCourse(courseId: Int, applied: Boolean) {
         viewModelScope.launch {
             kotlin.runCatching {
-                dataStoreRepository.getMyCourseList()
+                getSavedMyCourseListUseCase()
             }.onSuccess {
                 val courseList = it.first().toMutableList()
                 if (!applied) courseList.add(courseId)
                 else courseList.remove(courseId)
-                dataStoreRepository.saveMyCourseList(courseList.toList())
+                savedMyCourseListUseCase(courseList.toList())
                 _appliedStateFlow.value = !_appliedStateFlow.value
             }.onFailure {
                 throw it
@@ -62,7 +68,7 @@ class CourseDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _detailCourseStateFlow.value = UiState.Loading
             kotlin.runCatching {
-                detailRepository.getCourseDetail(courseId = courseId)
+                getCourseDetailUseCase(courseId = courseId)
             }.onSuccess {
                 it.collect { collect ->
                     when (collect) {
@@ -85,7 +91,7 @@ class CourseDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _lectureListStateFlow.value = UiState.Loading
             kotlin.runCatching {
-                detailRepository.getLectures(courseId = courseId, offset = offset, count = count)
+                getCurriculumLectureListUseCase(courseId = courseId, offset = offset, count = count)
             }.onSuccess {
                 it.collect { collect ->
                     when (collect) {
