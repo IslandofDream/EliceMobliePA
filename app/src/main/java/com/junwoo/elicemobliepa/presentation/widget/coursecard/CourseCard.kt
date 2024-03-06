@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -49,6 +50,7 @@ fun CourseCard(
     Column(modifier = Modifier
         .width(200.dp)
         .height(220.dp)
+        .clip(RoundedCornerShape(10.dp))
         .clickable { onClick.invoke() }) {
 
         courseCardModel.imageFileUrl?.let { ThumbnailWithImage(it) } ?: ThumbnailWithOutImage(
@@ -117,8 +119,7 @@ private fun ThumbnailWithOutImage(url: String) {
             model = url,
             contentDescription = null,
             modifier = Modifier
-                .width(56.dp)
-                .height(56.dp)
+                .size(56.dp)
                 .align(Alignment.Center),
             placeholder = painterResource(id = R.drawable.ic_launcher_background),
             error = painterResource(id = R.drawable.ic_launcher_background)
@@ -134,7 +135,7 @@ FlowRow를 활용하여 자동으로 Tag들이 넘어가도록 설정
 private fun CourseTagList(tags: List<String?>) {
     FlowRow(
         modifier = Modifier
-            .height(35.dp)
+            .height(34.dp)
             .fillMaxWidth()
             .clip(RectangleShape),
         // Tag의 크기가 고정임을 이용하여 2줄 을 넘어간 높이의 경우 보이지 않게 하도록 설정

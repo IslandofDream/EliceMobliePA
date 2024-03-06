@@ -28,8 +28,8 @@ fun CourseCardTag(content: String) {
                     cornerRadius = CornerRadius(4.dp.toPx())
                 )
             }
-            .padding(horizontal = 4.dp, vertical = 2.dp)
-            .height(12.dp),
+            .height(16.dp)
+            .padding(horizontal = 4.dp, vertical = 2.dp),
         style = EliceTheme.typography.homeTag,
         overflow = TextOverflow.Ellipsis,
         maxLines = 1
