@@ -98,7 +98,9 @@ fun TitleAreaWithImage(
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(2f)
+                .aspectRatio(2f),
+            placeholder = painterResource(id = R.drawable.image_placeholder_aspect_ratio_24),
+            error = painterResource(id = R.drawable.image_error)
         )
     }
 }
@@ -116,8 +118,8 @@ private fun LogoWithCard(size: Int, logoUrl: String) {
             contentDescription = null,
             modifier = Modifier
                 .size(size.dp),
-            placeholder = painterResource(id = R.drawable.ic_launcher_background),
-            error = painterResource(id = R.drawable.ic_launcher_background)
+            placeholder = painterResource(id = R.drawable.image_placeholder_logo),
+            error = painterResource(id = R.drawable.image_error)
         )
     }
 

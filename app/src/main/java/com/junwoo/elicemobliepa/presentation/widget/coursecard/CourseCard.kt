@@ -101,8 +101,8 @@ private fun ThumbnailWithImage(url: String) {
             .width(200.dp)
             .height(100.dp)
             .clip(RoundedCornerShape(10.dp)),
-        placeholder = painterResource(id = R.drawable.ic_launcher_background),
-        error = painterResource(id = R.drawable.ic_launcher_background)
+        placeholder = painterResource(id = R.drawable.image_placeholder_aspect_ratio_24),
+        error = painterResource(id = R.drawable.image_error)
     )
 }
 
@@ -121,8 +121,8 @@ private fun ThumbnailWithOutImage(url: String) {
             modifier = Modifier
                 .size(56.dp)
                 .align(Alignment.Center),
-            placeholder = painterResource(id = R.drawable.ic_launcher_background),
-            error = painterResource(id = R.drawable.ic_launcher_background)
+            placeholder = painterResource(id = R.drawable.image_placeholder_logo),
+            error = painterResource(id = R.drawable.image_error)
         )
     }
 }
