@@ -8,6 +8,7 @@ val DarkGray = Color(0xFF242424)
 val Charcoal = Color(0xFF3A3A4C)
 val Gray = Color(0xFFAEAEAE)
 val LightGray = Color(0xFFE4E4E4)
+val WhiteGray = Color(0xFFF3F3F3)
 val White = Color(0xFFFFFFFF)
 
 val LightPurple = Color(0xFF524FA1)
@@ -20,6 +21,7 @@ data class EliceColors(
     val charcoal: Color,
     val gray: Color,
     val lightGray: Color,
+    val whiteGray: Color,
     val white: Color,
     val lightPurple: Color,
     val purple: Color,
@@ -33,6 +35,7 @@ val LocalEliceColors = staticCompositionLocalOf {
         charcoal = Charcoal,
         gray = Gray,
         lightGray = LightGray,
+        whiteGray = WhiteGray,
         white = White,
         lightPurple = LightPurple,
         purple = Purple,
@@ -46,6 +49,7 @@ val LocalEliceColorScheme = EliceColors(
     charcoal = Charcoal,
     gray = Gray,
     lightGray = LightGray,
+    whiteGray = WhiteGray,
     white = White,
     lightPurple = LightPurple,
     purple = Purple,

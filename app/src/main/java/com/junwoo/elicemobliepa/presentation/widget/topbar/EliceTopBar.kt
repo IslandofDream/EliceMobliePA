@@ -21,8 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.junwoo.elicemobliepa.R
+import com.junwoo.elicemobliepa.presentation.util.rippleClickable
 import com.junwoo.elicemobliepa.ui.theme.EliceMobliePATheme
-import com.junwoo.elicemobliepa.ui.theme.EliceTheme
 
 data class EliceTopBarModel(
     val topBarLeftSection: TopBarLeftSection,
@@ -51,9 +51,8 @@ fun EliceTopBar(model: EliceTopBarModel, onLeftClick: () -> Unit, onRightClick: 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .height(model.height.dp)
-            .background(EliceTheme.colors.gray),
+            .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -82,7 +81,7 @@ private fun TopBarLeftSection(topBarLeftSection: TopBarLeftSection, onClick: () 
                     contentDescription = null,
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable { onClick.invoke() }
+                        .rippleClickable { onClick.invoke() }
                 )
             }
         }
@@ -99,7 +98,7 @@ private fun TopBarRightSection(topBarRightSection: TopBarRightSection, onClick: 
                     contentDescription = null,
                     modifier = Modifier
                         .size(32.dp)
-                        .clickable { onClick.invoke() }
+                        .rippleClickable { onClick.invoke() }
                 )
             }
 
