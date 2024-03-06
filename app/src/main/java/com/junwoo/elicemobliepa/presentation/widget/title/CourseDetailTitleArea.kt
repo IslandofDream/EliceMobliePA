@@ -1,4 +1,4 @@
-package com.junwoo.elicemobliepa.presentation.detail
+package com.junwoo.elicemobliepa.presentation.widget.title
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

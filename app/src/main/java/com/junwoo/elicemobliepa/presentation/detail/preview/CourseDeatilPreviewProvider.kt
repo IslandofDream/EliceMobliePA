@@ -1,12 +1,12 @@
-package com.junwoo.elicemobliepa.presentation.detail
+package com.junwoo.elicemobliepa.presentation.detail.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.junwoo.elicemobliepa.presentation.util.PreViewDummy
 
-class CourseDeatilPreviewProvider: PreviewParameterProvider<CouresDetailModel> {
-    override val values: Sequence<CouresDetailModel>
+class CourseDeatilPreviewProvider: PreviewParameterProvider<CouresDetailPreviewModel> {
+    override val values: Sequence<CouresDetailPreviewModel>
         get() = sequenceOf(
-            CouresDetailModel(
+            CouresDetailPreviewModel(
                 imageUrl = PreViewDummy.TEST_IMAGE,
                 logoUrl = PreViewDummy.TEST_LOGO,
                 description = PreViewDummy.TEST_MARKDOWN,
@@ -14,7 +14,7 @@ class CourseDeatilPreviewProvider: PreviewParameterProvider<CouresDetailModel> {
                 title = "title",
                 shortDescription = "shortDescription"
             ),
-            CouresDetailModel(
+            CouresDetailPreviewModel(
                 imageUrl = null,
                 logoUrl = PreViewDummy.TEST_LOGO,
                 description = PreViewDummy.TEST_MARKDOWN,
@@ -22,7 +22,7 @@ class CourseDeatilPreviewProvider: PreviewParameterProvider<CouresDetailModel> {
                 title = "title",
                 shortDescription = "shortDescription"
             ),
-            CouresDetailModel(
+            CouresDetailPreviewModel(
                 imageUrl = null,
                 logoUrl = PreViewDummy.TEST_LOGO,
                 description = null,

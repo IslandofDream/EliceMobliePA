@@ -1,4 +1,4 @@
-package com.junwoo.elicemobliepa.data.repository.remote
+package com.junwoo.elicemobliepa.data.repository.detail
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -9,7 +9,7 @@ import com.junwoo.elicemobliepa.data.remote.CoursePagingSource
 import com.junwoo.elicemobliepa.data.remote.EliceApi
 import com.junwoo.elicemobliepa.data.util.Constant
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
-import com.junwoo.elicemobliepa.domain.repository.remote.HomeRepository
+import com.junwoo.elicemobliepa.domain.repository.home.HomeRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

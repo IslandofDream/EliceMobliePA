@@ -1,6 +1,6 @@
 package com.junwoo.elicemobliepa.domain.usecase
 
-import com.junwoo.elicemobliepa.domain.repository.local.DataStoreRepository
+import com.junwoo.elicemobliepa.domain.repository.datastore.DataStoreRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

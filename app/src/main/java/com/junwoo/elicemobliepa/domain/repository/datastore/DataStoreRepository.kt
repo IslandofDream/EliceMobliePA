@@ -1,4 +1,4 @@
-package com.junwoo.elicemobliepa.domain.repository.local
+package com.junwoo.elicemobliepa.domain.repository.datastore
 
 import kotlinx.coroutines.flow.Flow
 

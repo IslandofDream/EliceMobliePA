@@ -1,6 +1,6 @@
-package com.junwoo.elicemobliepa.presentation.detail
+package com.junwoo.elicemobliepa.presentation.detail.preview
 
-data class CouresDetailModel(
+data class CouresDetailPreviewModel(
     val imageUrl: String?,
     val logoUrl: String,
     val description: String?,

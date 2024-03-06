@@ -1,4 +1,4 @@
-package com.junwoo.elicemobliepa.domain.repository.remote
+package com.junwoo.elicemobliepa.domain.repository.home
 
 import androidx.paging.PagingData
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity

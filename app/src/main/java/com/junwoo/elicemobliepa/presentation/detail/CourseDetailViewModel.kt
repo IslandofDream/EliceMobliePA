@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.junwoo.elicemobliepa.core.ApiResult
 import com.junwoo.elicemobliepa.domain.entity.CourseDetailEntity
 import com.junwoo.elicemobliepa.domain.entity.LectureEntity
-import com.junwoo.elicemobliepa.domain.repository.local.DataStoreRepository
-import com.junwoo.elicemobliepa.domain.repository.remote.DetailRepository
+import com.junwoo.elicemobliepa.domain.repository.datastore.DataStoreRepository
+import com.junwoo.elicemobliepa.domain.repository.detail.DetailRepository
 import com.junwoo.elicemobliepa.presentation.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

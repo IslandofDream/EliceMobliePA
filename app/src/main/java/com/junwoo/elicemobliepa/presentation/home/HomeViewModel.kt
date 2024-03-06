@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
-import com.junwoo.elicemobliepa.domain.repository.remote.HomeRepository
+import com.junwoo.elicemobliepa.domain.repository.home.HomeRepository
 import com.junwoo.elicemobliepa.domain.usecase.GetSavedMyCourseListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
