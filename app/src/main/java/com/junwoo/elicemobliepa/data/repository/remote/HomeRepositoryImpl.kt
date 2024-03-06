@@ -24,6 +24,7 @@ class HomeRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = Constant.PAGING_SIZE,
+                initialLoadSize = Constant.PAGING_SIZE
             ),
             pagingSourceFactory = {
                 CoursePagingSource(
