@@ -8,7 +8,7 @@ class CourseDetailMapper : BaseMapper<CourseDetailDTO, CourseDetailEntity> {
         return from.course!!.let {
             CourseDetailEntity(
                 imageUrl = it.imageFileUrl,
-                logoUrl = it.logoFileUrl ?: "o",
+                logoUrl = it.logoFileUrl ?: "",
                 description = it.description,
                 title = it.title ?: "",
                 shortDescription = it.shortDescription
