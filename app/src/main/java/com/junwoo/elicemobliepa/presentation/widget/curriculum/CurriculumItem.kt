@@ -124,3 +124,23 @@ private fun CurriculumPreview(
         CurriculumItem(items = curriculums)
     }
 }
+
+@Preview(device = Devices.FOLDABLE)
+@Composable
+private fun CurriculumPreviewFoldable(
+    @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<Pair<String, String>>
+) {
+    EliceMobilePATheme {
+        CurriculumItem(items = curriculums)
+    }
+}
+
+@Preview(device = Devices.TABLET)
+@Composable
+private fun CurriculumPreviewTablet(
+    @PreviewParameter(CurriculumPreviewProvider::class) curriculums: List<Pair<String, String>>
+) {
+    EliceMobilePATheme {
+        CurriculumItem(items = curriculums)
+    }
+}

@@ -116,4 +116,22 @@ private fun PreviewTopBar(
     }
 }
 
+@Composable
+@Preview(device = Devices.FOLDABLE)
+private fun PreviewTopBarFoldable(
+    @PreviewParameter(EliceTopBarPreviewProvider::class) models: EliceTopBarModel
+) {
+    EliceMobilePATheme {
+        EliceTopBar(model = models, onLeftClick = {}, onRightClick = {})
+    }
+}
 
+@Composable
+@Preview(device = Devices.TABLET)
+private fun PreviewTopBarTablet(
+    @PreviewParameter(EliceTopBarPreviewProvider::class) models: EliceTopBarModel
+) {
+    EliceMobilePATheme {
+        EliceTopBar(model = models, onLeftClick = {}, onRightClick = {})
+    }
+}

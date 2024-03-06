@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -107,8 +108,8 @@ private fun LogoWithCard(size: Int, logoUrl: String) {
 
 }
 
-@Preview
 @Composable
+@Preview(device = Devices.PHONE)
 private fun PreviewTitleAreaWithoutImage() {
     EliceMobilePATheme {
         TitleAreaWithoutImage(
@@ -119,8 +120,32 @@ private fun PreviewTitleAreaWithoutImage() {
     }
 }
 
-@Preview
 @Composable
+@Preview(device = Devices.PHONE)
+private fun PreviewTitleAreaWithoutImageFoldable() {
+    EliceMobilePATheme {
+        TitleAreaWithoutImage(
+            logoUrl = PreViewDummy.TEST_LOGO,
+            title = "title",
+            shortDescription = "Description"
+        )
+    }
+}
+
+@Composable
+@Preview(device = Devices.TABLET)
+private fun PreviewTitleAreaWithoutImageTablet() {
+    EliceMobilePATheme {
+        TitleAreaWithoutImage(
+            logoUrl = PreViewDummy.TEST_LOGO,
+            title = "title",
+            shortDescription = "Description"
+        )
+    }
+}
+
+@Composable
+@Preview(device = Devices.PHONE)
 private fun PreviewTitleAreaWithImage() {
     EliceMobilePATheme {
         TitleAreaWithImage(
@@ -131,4 +156,27 @@ private fun PreviewTitleAreaWithImage() {
     }
 }
 
+@Composable
+@Preview(device = Devices.FOLDABLE)
+private fun PreviewTitleAreaWithImageFoldable() {
+    EliceMobilePATheme {
+        TitleAreaWithImage(
+            logoUrl = PreViewDummy.TEST_LOGO,
+            imageUrl = PreViewDummy.TEST_IMAGE,
+            title = "title"
+        )
+    }
+}
+
+@Composable
+@Preview(device = Devices.TABLET)
+private fun PreviewTitleAreaWithImageTablet() {
+    EliceMobilePATheme {
+        TitleAreaWithImage(
+            logoUrl = PreViewDummy.TEST_LOGO,
+            imageUrl = PreViewDummy.TEST_IMAGE,
+            title = "title"
+        )
+    }
+}
 

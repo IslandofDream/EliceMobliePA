@@ -98,3 +98,39 @@ private fun SignUpButtonPreview() {
         }
     }
 }
+
+@Composable
+@Preview(device = Devices.FOLDABLE)
+private fun SignUpButtonPreviewFoldable() {
+    EliceMobilePATheme {
+        Column(
+            modifier = Modifier.background(Color.Gray),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            getSingUpButtonModels().forEach { model ->
+                SignUpButton(model = model, applied = true, isLoading = true) {}
+                SignUpButton(model = model, applied = false, isLoading = true) {}
+                SignUpButton(model = model, applied = true, isLoading = false) {}
+                SignUpButton(model = model, applied = false, isLoading = false) {}
+            }
+        }
+    }
+}
+
+@Composable
+@Preview(device = Devices.TABLET)
+private fun SignUpButtonPreviewTablet() {
+    EliceMobilePATheme {
+        Column(
+            modifier = Modifier.background(Color.Gray),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            getSingUpButtonModels().forEach { model ->
+                SignUpButton(model = model, applied = true, isLoading = true) {}
+                SignUpButton(model = model, applied = false, isLoading = true) {}
+                SignUpButton(model = model, applied = true, isLoading = false) {}
+                SignUpButton(model = model, applied = false, isLoading = false) {}
+            }
+        }
+    }
+}
