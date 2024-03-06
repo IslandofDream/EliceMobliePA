@@ -2,33 +2,81 @@ package com.junwoo.elicemobliepa.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
+import androidx.paging.PagingData
 import com.google.gson.Gson
+import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
 import com.junwoo.elicemobliepa.domain.repository.remote.HomeRepository
 import com.junwoo.elicemobliepa.domain.usecase.GetSavedMyCourseListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import timber.log.Timber
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository,
-    private val getSavedMyCourseRawData: GetSavedMyCourseListUseCase
+    private val getSavedMyCourseListUseCase: GetSavedMyCourseListUseCase
 ) : ViewModel() {
 
-    fun getCourses(
+    private val _freeCourses = MutableStateFlow<PagingData<CourseItemEntity>>(PagingData.empty())
+    val freeCourses = _freeCourses.asStateFlow()
+
+    private val _recommendCourses =
+        MutableStateFlow<PagingData<CourseItemEntity>>(PagingData.empty())
+    val recommendCourses = _recommendCourses.asStateFlow()
+
+    private val _myCourses = MutableStateFlow<PagingData<CourseItemEntity>>(PagingData.empty())
+    val myCourses = _myCourses.asStateFlow()
+
+    init {
+        fetchCourses()
+    }
+
+    private fun fetchCourses() {
+        fetchFreeCourses()
+        fetchRecommendedCourses()
+        fetchMyCourses()
+    }
+
+    private fun fetchFreeCourses() = viewModelScope.launch {
+        fetchAndSetCourseItems(_freeCourses, filterIsFree = true)
+    }
+
+    private fun fetchRecommendedCourses() = viewModelScope.launch {
+        fetchAndSetCourseItems(_recommendCourses, filterIsRecommended = true)
+    }
+
+    fun fetchMyCourses() = viewModelScope.launch {
+        val filterConditions = getSavedMyCourseListFilterConditions()
+        fetchAndSetCourseItems(_myCourses, filterConditions = filterConditions)
+    }
+
+    private suspend fun getSavedMyCourseListFilterConditions(): String? = runCatching {
+        getSavedMyCourseListUseCase.invoke().first()
+    }.getOrNull()?.let { courseIds ->
+        Gson().toJson(mapOf("course_ids" to courseIds))
+    }
+
+    private fun fetchAndSetCourseItems(
+        stateFlow: MutableStateFlow<PagingData<CourseItemEntity>>,
         filterIsRecommended: Boolean? = null,
         filterIsFree: Boolean? = null,
-        filterCondition: Boolean = false
-    ) = flow {
-        val filterConditions =
-            if (filterCondition) getSavedMyCourseRawData.invoke().first() else null
-        emitAll(
-            homeRepository.fetchCourseItems(filterIsRecommended, filterIsFree, Gson().toJson(mapOf("course_ids" to filterConditions)))
-                .cachedIn(viewModelScope)
-        )
+        filterConditions: String? = null
+    ) = viewModelScope.launch {
+        runCatching {
+            homeRepository.fetchCourseItems(
+                filterIsRecommended = filterIsRecommended,
+                filterIsFree = filterIsFree,
+                filterConditions = filterConditions
+            )
+        }.onSuccess {
+            it.collect { pagingData ->
+                stateFlow.value = pagingData
+            }
+        }.onFailure {
+            throw it
+        }
     }
 }

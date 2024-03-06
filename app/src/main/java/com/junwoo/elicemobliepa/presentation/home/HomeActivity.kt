@@ -52,11 +52,19 @@ class HomeActivity : ComponentActivity() {
         const val COURSE_ID_KEY = "course_id"
     }
 
+    private val homeViewModel by viewModels<HomeViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             HomeScreen()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.fetchMyCourses()
+        // 다른 과목들은 실시간으로 변할 소요가 적어서 내 학습에 한해서 LazyRow 갱신하도록 처리
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -69,13 +77,11 @@ class HomeActivity : ComponentActivity() {
                         topBarLeftSection = TopBarLeftSection.LOGO,
                         topBarRightSection = TopBarRightSection.SEARCH,
                         height = 64
-                    ), onLeftClick = {}, onRightClick = { //Mock Up
-                    })
+                    ), onLeftClick = {}, onRightClick = { /*Mock Up*/ })
             })
             { innerPadding ->
 
                 val scrollState = rememberScrollState()
-                val homeViewModel by viewModels<HomeViewModel>()
 
                 Column(
                     modifier = Modifier
@@ -83,17 +89,10 @@ class HomeActivity : ComponentActivity() {
                         .padding(innerPadding)
                         .verticalScroll(scrollState)
                 ) {
-                    val freeCourses = homeViewModel.getCourses(
-                        filterIsFree = true
-                    ).collectAsLazyPagingItems()
 
-                    val recommendCourses = homeViewModel.getCourses(
-                        filterIsRecommended = true
-                    ).collectAsLazyPagingItems()
-
-                    val myCourses = homeViewModel.getCourses(
-                        filterCondition = true
-                    ).collectAsLazyPagingItems()
+                    val freeCourses = homeViewModel.freeCourses.collectAsLazyPagingItems()
+                    val recommendCourses = homeViewModel.recommendCourses.collectAsLazyPagingItems()
+                    val myCourses = homeViewModel.myCourses.collectAsLazyPagingItems()
 
                     Spacer(
                         modifier = Modifier
