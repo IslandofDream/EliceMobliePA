@@ -29,11 +29,14 @@ class HomeRepositoryImpl @Inject constructor(
                 initialLoadSize = Constant.PAGING_SIZE
             ),
             pagingSourceFactory = {
+                val filterConditionQuery = filterConditions?.let {
+                    gson.toJson(mapOf("course_ids" to filterConditions))
+                }
                 CoursePagingSource(
                     service = eliceService,
                     filterIsRecommended = filterIsRecommended,
                     filterIsFree = filterIsFree,
-                    filterConditions = gson.toJson(mapOf("course_ids" to filterConditions)),
+                    filterConditions = filterConditionQuery,
                     CourseListMapper()
                 )
             }
