@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DataStoreRepositoryImpl @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
+    private val gson: Gson
 ) : DataStoreRepository {
 
     override suspend fun saveMyCourseList(list: List<Int>) {
-        val gson = Gson()
         val json = gson.toJson(list)
         dataStore.edit { preferences ->
             preferences[Constant.DATASTORE_KEY] = json
@@ -28,7 +28,6 @@ class DataStoreRepositoryImpl @Inject constructor(
         return dataStore.data.catch {
             throw it
         }.map { preferences ->
-            val gson = Gson()
             val json = preferences[Constant.DATASTORE_KEY] ?: ""
             if (json.isNotEmpty()) {
                 val type = object : TypeToken<List<Int>>() {}.type

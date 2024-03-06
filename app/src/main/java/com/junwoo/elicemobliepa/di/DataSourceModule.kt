@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.google.gson.Gson
 import com.junwoo.elicemobliepa.data.remote.DetailCourseDataSource
 import com.junwoo.elicemobliepa.data.remote.DetailCourseDataSourceImpl
 import com.junwoo.elicemobliepa.data.remote.EliceApi
@@ -38,6 +39,12 @@ object DataSourceModule {
         @ApplicationContext applicationContext: Context,
     ): DataStore<Preferences> {
         return applicationContext.myCourseDataStore
+    }
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson {
+        return Gson()
     }
 
 }

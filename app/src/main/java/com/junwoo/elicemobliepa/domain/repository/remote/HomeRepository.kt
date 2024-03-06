@@ -9,7 +9,7 @@ interface HomeRepository {
     fun fetchCourseItems(
         filterIsRecommended: Boolean? = null,
         filterIsFree: Boolean? = null,
-        filterConditions: String? = null
+        filterConditions: List<Int>? = null
     ): Flow<PagingData<CourseItemEntity>>
 
 }

@@ -3,7 +3,6 @@ package com.junwoo.elicemobliepa.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.google.gson.Gson
 import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
 import com.junwoo.elicemobliepa.domain.repository.remote.HomeRepository
 import com.junwoo.elicemobliepa.domain.usecase.GetSavedMyCourseListUseCase
@@ -49,21 +48,17 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchMyCourses() = viewModelScope.launch {
-        val filterConditions = getSavedMyCourseListFilterConditions()
-        fetchAndSetCourseItems(_myCourses, filterConditions = filterConditions)
-    }
-
-    private suspend fun getSavedMyCourseListFilterConditions(): String? = runCatching {
-        getSavedMyCourseListUseCase.invoke().first()
-    }.getOrNull()?.let { courseIds ->
-        Gson().toJson(mapOf("course_ids" to courseIds))
+        fetchAndSetCourseItems(
+            _myCourses,
+            filterConditions = getSavedMyCourseListUseCase.invoke().first()
+        )
     }
 
     private fun fetchAndSetCourseItems(
         stateFlow: MutableStateFlow<PagingData<CourseItemEntity>>,
         filterIsRecommended: Boolean? = null,
         filterIsFree: Boolean? = null,
-        filterConditions: String? = null
+        filterConditions: List<Int>? = null
     ) = viewModelScope.launch {
         runCatching {
             homeRepository.fetchCourseItems(
