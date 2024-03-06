@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -38,6 +36,7 @@ import com.junwoo.elicemobliepa.presentation.util.UiState
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButton
 import com.junwoo.elicemobliepa.presentation.widget.button.SignUpButtonModel
 import com.junwoo.elicemobliepa.presentation.widget.curriculum.TimelineView
+import com.junwoo.elicemobliepa.presentation.widget.loading.CircularLoading
 import com.junwoo.elicemobliepa.presentation.widget.title.TitleAreaWithImage
 import com.junwoo.elicemobliepa.presentation.widget.title.TitleAreaWithoutImage
 import com.junwoo.elicemobliepa.presentation.widget.topbar.EliceTopBar
@@ -55,6 +54,7 @@ class CourseDetailActivity : ComponentActivity() {
     companion object {
         private const val OFFSET = 0
         private const val COUNT = 40
+        private const val LOADING_SIZE = 200
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,7 +149,7 @@ class CourseDetailActivity : ComponentActivity() {
     private fun TitleArea(courseDetailUiState: UiState<CourseDetailEntity>) {
         when (courseDetailUiState) {
             is UiState.Loading -> {
-                LoadingBar()
+                CircularLoading(LOADING_SIZE)
             }
 
             is UiState.Success -> {
@@ -179,7 +179,7 @@ class CourseDetailActivity : ComponentActivity() {
 
         when (courseDetailUiState) {
             is UiState.Loading -> {
-                LoadingBar()
+                CircularLoading(LOADING_SIZE)
             }
 
             is UiState.Success -> {
@@ -202,7 +202,7 @@ class CourseDetailActivity : ComponentActivity() {
     private fun CurriculumArea(lectureUiState: UiState<List<LectureEntity>>) {
         when (lectureUiState) {
             is UiState.Loading -> {
-                LoadingBar()
+                CircularLoading(LOADING_SIZE)
             }
 
             is UiState.Success -> {
@@ -243,13 +243,6 @@ class CourseDetailActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    private fun LoadingBar() {
-        CircularProgressIndicator(
-            modifier = Modifier.width(64.dp),
-            color = EliceTheme.colors.lightGray,
-        )
-    }
 
     @Preview
     @Composable

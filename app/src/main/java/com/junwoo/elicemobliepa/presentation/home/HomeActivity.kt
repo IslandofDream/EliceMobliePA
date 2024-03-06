@@ -37,6 +37,7 @@ import com.junwoo.elicemobliepa.domain.entity.CourseItemEntity
 import com.junwoo.elicemobliepa.presentation.detail.CourseDetailActivity
 import com.junwoo.elicemobliepa.presentation.util.Spacer8
 import com.junwoo.elicemobliepa.presentation.widget.coursecard.CourseCard
+import com.junwoo.elicemobliepa.presentation.widget.loading.CircularLoading
 import com.junwoo.elicemobliepa.presentation.widget.topbar.EliceTopBar
 import com.junwoo.elicemobliepa.presentation.widget.topbar.EliceTopBarModel
 import com.junwoo.elicemobliepa.presentation.widget.topbar.TopBarLeftSection
@@ -135,7 +136,7 @@ class HomeActivity : ComponentActivity() {
     private fun CourseList(courseCards: LazyPagingItems<CourseItemEntity>) {
         when {
             courseCards.loadState.refresh is LoadState.Loading -> {
-                LoadingIndicator()
+                CircularLoading(220)
             }
 
             courseCards.itemCount == 0 -> {
@@ -146,17 +147,6 @@ class HomeActivity : ComponentActivity() {
                 CourseCardsRow(courseCards)
             }
         }
-    }
-
-    @Composable
-    fun LoadingIndicator() {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp)
-                .wrapContentSize(Alignment.Center),
-            color = EliceTheme.colors.lightGray,
-        )
     }
 
     @Composable
